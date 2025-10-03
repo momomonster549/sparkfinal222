@@ -24,10 +24,21 @@ export default function VideoHero() {
   const springX = useSpring(mouseX, { stiffness: 150, damping: 15 });
   const springY = useSpring(mouseY, { stiffness: 150, damping: 15 });
 
-  // Particle transforms
+  // Particle and shape transforms
   const particleX = useTransform(springX, [-50, 50], [-30, 30]);
-  const particleY = useTransform(springY, [-50, 50], [-30, 30]);
   const particleScrollY = useTransform(scrollYProgress, [0, 1], [0, -100]);
+
+  // Shape transforms for geometric elements
+  const shapeX1 = useTransform(springX, [-50, 50], [-20, 20]);
+  const shapeY1 = useTransform(springY, [-50, 50], [-20, 20]);
+  const shapeX2 = useTransform(springX, [-50, 50], [20, -20]);
+  const shapeY2 = useTransform(springY, [-50, 50], [20, -20]);
+  const shapeX3 = useTransform(springX, [-50, 50], [-30, 30]);
+  const shapeY3 = useTransform(springY, [-50, 50], [30, -30]);
+
+  // Content transforms
+  const contentX = useTransform(springX, [-50, 50], [-10, 10]);
+  const contentY = useTransform(springY, [-50, 50], [-5, 5]);
 
   useEffect(() => {
     import("lenis").then(({ default: Lenis }) => {
@@ -71,25 +82,22 @@ export default function VideoHero() {
         
         {/* Floating geometric shapes - responsive sizes */}
         <motion.div
-          style={{ 
-            x: useTransform(springX, [-50, 50], [-20, 20]),
-            y: useTransform(springY, [-50, 50], [-20, 20]),
+          style={{
+            x: shapeX1,
             y: y2
           }}
           className="absolute top-10 sm:top-20 left-4 sm:left-10 w-16 h-16 sm:w-32 sm:h-32 bg-gradient-to-br from-tamarind-orange/20 to-chili-red/20 dark:from-tamarind-orange/20 dark:to-chili-red/20 from-tamarind-orange/30 to-chili-red/30 rounded-full blur-lg sm:blur-xl"
         />
         <motion.div
-          style={{ 
-            x: useTransform(springX, [-50, 50], [20, -20]),
-            y: useTransform(springY, [-50, 50], [20, -20]),
+          style={{
+            x: shapeX2,
             y: y1
           }}
           className="absolute bottom-10 sm:bottom-20 right-4 sm:right-10 w-24 h-24 sm:w-48 sm:h-48 bg-gradient-to-br from-chili-red/15 to-tamarind-orange/15 dark:from-chili-red/15 dark:to-tamarind-orange/15 from-chili-red/25 to-tamarind-orange/25 rounded-full blur-xl sm:blur-2xl"
         />
         <motion.div
-          style={{ 
-            x: useTransform(springX, [-50, 50], [-30, 30]),
-            y: useTransform(springY, [-50, 50], [30, -30]),
+          style={{
+            x: shapeX3,
             y: y2
           }}
           className="absolute top-1/2 left-1/6 sm:left-1/4 w-12 h-12 sm:w-24 sm:h-24 bg-gradient-to-br from-peach-sand/20 to-maize/20 dark:from-peach-sand/20 dark:to-maize/20 from-peach-sand/35 to-maize/35 rounded-full blur-md sm:blur-lg"
@@ -100,8 +108,7 @@ export default function VideoHero() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 py-16 sm:py-28 md:py-40 relative z-10">
         <motion.div
           style={{
-            x: useTransform(springX, [-50, 50], [-10, 10]),
-            y: useTransform(springY, [-50, 50], [-5, 5]),
+            x: contentX,
             y: y1,
             opacity
           }}

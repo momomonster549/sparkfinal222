@@ -17,6 +17,7 @@ const securityHeaders = [
       "img-src 'self' data: blob: https:",
       "font-src 'self' data: https://fonts.gstatic.com",
       "connect-src 'self' https:",
+      "media-src 'self' https://cqxporsfudzigeimzawn.supabase.co https://commondatastorage.googleapis.com https://sample-videos.com",
       "frame-ancestors 'self'",
       "base-uri 'self'",
       "form-action 'self'"
@@ -26,6 +27,20 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   typedRoutes: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'mprqehqtefuqhtgczaqo.supabase.co',
+        pathname: '/storage/v1/object/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cqxporsfudzigeimzawn.supabase.co',
+        pathname: '/storage/v1/object/**',
+      },
+    ],
+  },
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
   }

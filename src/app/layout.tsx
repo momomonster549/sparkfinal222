@@ -11,8 +11,13 @@ const bebas = Bebas_Neue({ weight: "400", subsets: ["latin"], variable: "--font-
 
 export const metadata: Metadata = {
   title: "SparkCreatives Inc.",
-  description: "Turning excess to empowerment.",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=5"
+  description: "Turning excess to empowerment."
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

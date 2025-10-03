@@ -1,5 +1,6 @@
 import Section from "@/components/Section";
 import VideoHero from "@/components/VideoHero";
+import SimpleVideo from "@/components/SimpleVideo";
 import ImpactStrip from "@/components/ImpactStrip";
 import LogoWall from "@/components/LogoWall";
 import GlowButton from "@/components/GlowButton";
@@ -10,7 +11,14 @@ import CalendarEvent from "@/components/CalendarEvent";
 export default function Page() {
   return (
     <main>
-      <VideoHero />
+      {/* Option 1: With Video Background */}
+      <VideoHero
+        videoUrl="https://cqxporsfudzigeimzawn.supabase.co/storage/v1/object/sign/website-assets-video/Igniting%20Creative%20Change!.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wNmNkMDYzYy1mYzcwLTQ5ZmMtOTEzMS0zMDUyOTU1MzRiZGMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ3ZWJzaXRlLWFzc2V0cy12aWRlby9JZ25pdGluZyBDcmVhdGl2ZSBDaGFuZ2UhLm1wNCIsImlhdCI6MTc1OTUzMDcwMywiZXhwIjoxNzkxMDY2NzAzfQ.zfZzbpeaRDMLc0--WZz3CLDIfezj1dpSAbA1TWrTpC4"
+        showVideo={true}
+      />
+      
+      {/* Option 2: Without Video (original 3D background) */}
+      {/* <VideoHero showVideo={false} /> */}
 
       <Section id="experience" kicker="What you'll experience" title="From surplus to sustainable livelihoods">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">

@@ -3,9 +3,18 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import GlowButton from "./GlowButton";
 
-export default function VideoHero() {
+interface VideoHeroProps {
+  videoUrl?: string;
+  showVideo?: boolean;
+}
+
+export default function VideoHero({ videoUrl = "https://cqxporsfudzigeimzawn.supabase.co/storage/v1/object/sign/website-assets-video/Igniting%20Creative%20Change!.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wNmNkMDYzYy1mYzcwLTQ5ZmMtOTEzMS0zMDUyOTU1MzRiZGMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ3ZWJzaXRlLWFzc2V0cy12aWRlby9JZ25pdGluZyBDcmVhdGl2ZSBDaGFuZ2UhLm1wNCIsImlhdCI6MTc1OTUzMDcwMywiZXhwIjoxNzkxMDY2NzAzfQ.zfZzbpeaRDMLc0--WZz3CLDIfezj1dpSAbA1TWrTpC4", showVideo = true }: VideoHeroProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [videoError, setVideoError] = useState(false);
+  const [videoStarted, setVideoStarted] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"]
@@ -41,6 +50,7 @@ export default function VideoHero() {
   const contentY = useTransform(springY, [-50, 50], [-5, 5]);
 
   useEffect(() => {
+    setMounted(true);
     import("lenis").then(({ default: Lenis }) => {
       const lenis = new Lenis({ smoothWheel: true });
       const raf = (time: number) => { lenis.raf(time); requestAnimationFrame(raf); };
@@ -48,6 +58,59 @@ export default function VideoHero() {
       return () => { /* @ts-ignore */ lenis?.destroy?.(); };
     });
   }, []);
+
+  // Force video to play
+  useEffect(() => {
+    if (videoRef.current && showVideo) {
+      const video = videoRef.current;
+
+      // Set video attributes
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+
+      // Force load the video
+      video.load();
+
+      const playVideo = async () => {
+        try {
+          console.log('Attempting to play video...');
+          await video.play();
+          console.log('Video play successful!');
+          setVideoStarted(true);
+        } catch (error) {
+          console.error('Video play failed:', error);
+          setVideoError(true);
+        }
+      };
+
+      // Try to play when metadata loads
+      video.addEventListener('loadedmetadata', () => {
+        console.log('Video metadata loaded');
+        playVideo();
+      });
+
+      // Try to play when data loads
+      video.addEventListener('loadeddata', () => {
+        console.log('Video data loaded');
+        playVideo();
+      });
+
+      // Try to play when can play
+      video.addEventListener('canplay', () => {
+        console.log('Video can play');
+        playVideo();
+      });
+
+      return () => {
+        video.removeEventListener('loadedmetadata', playVideo);
+        video.removeEventListener('loadeddata', playVideo);
+        video.removeEventListener('canplay', playVideo);
+      };
+    }
+  }, [showVideo]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -70,14 +133,69 @@ export default function VideoHero() {
     }
   }, [mouseX, mouseY]);
 
+  const handleVideoClick = () => {
+    if (videoRef.current) {
+      videoRef.current.play().then(() => {
+        setVideoStarted(true);
+      }).catch(console.error);
+    }
+  };
+
   return (
-    <section ref={containerRef} className="relative overflow-hidden min-h-screen flex items-center">
+    <section 
+      ref={containerRef} 
+      className="relative overflow-hidden min-h-screen flex items-center cursor-pointer"
+      onClick={handleVideoClick}
+    >
+      {/* Fallback background in case video doesn't load */}
+      <div className="absolute inset-0 z-0 bg-gradient-to-br from-cream via-peach-sand to-maize dark:from-[#0A0B10] dark:via-[#1A1B20] dark:to-[#2A1B30]" />
+
+      {/* Video Background */}
+      {mounted && showVideo && !videoError && (
+        <div className="absolute inset-0 z-10">
+          <video
+            ref={videoRef}
+            className="w-full h-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            onError={(e) => {
+              const target = e.target as HTMLVideoElement;
+              console.error('Video error details:', {
+                error: target.error,
+                networkState: target.networkState,
+                readyState: target.readyState,
+                src: target.currentSrc || target.src
+              });
+              setVideoError(true);
+            }}
+            onLoadStart={() => {
+              console.log('Video load started');
+              setVideoStarted(true);
+            }}
+            onPlay={() => {
+              console.log('VIDEO IS PLAYING!');
+            }}
+            onPause={() => {
+              console.log('Video paused');
+            }}
+          >
+            <source src={videoUrl} type="video/mp4" />
+          </video>
+        </div>
+      )}
+
+      {/* Video Overlay */}
+      <div className="absolute inset-0 z-20 bg-black/40 dark:bg-black/60 pointer-events-none" />
+
       {/* 3D Background Layers */}
-      <div className="absolute inset-0 -z-10">
+      <div className="absolute inset-0 z-30 pointer-events-none">
         {/* Deep background */}
-        <motion.div 
+        <motion.div
           style={{ y: y3, scale }}
-          className="absolute inset-0 bg-gradient-to-br from-[#0A0B10] via-[#1A1B20] to-[#2A1B30] dark:from-[#0A0B10] dark:via-[#1A1B20] dark:to-[#2A1B30] from-cream via-peach-sand to-maize"
+          className="absolute inset-0 bg-gradient-to-br from-cream/80 via-peach-sand/60 to-maize/80 dark:from-[#0A0B10]/80 dark:via-[#1A1B20]/60 dark:to-[#2A1B30]/80"
         />
         
         {/* Floating geometric shapes - responsive sizes */}
@@ -86,26 +204,26 @@ export default function VideoHero() {
             x: shapeX1,
             y: y2
           }}
-          className="absolute top-10 sm:top-20 left-4 sm:left-10 w-16 h-16 sm:w-32 sm:h-32 bg-gradient-to-br from-tamarind-orange/20 to-chili-red/20 dark:from-tamarind-orange/20 dark:to-chili-red/20 from-tamarind-orange/30 to-chili-red/30 rounded-full blur-lg sm:blur-xl"
+          className="absolute top-10 sm:top-20 left-4 sm:left-10 w-16 h-16 sm:w-32 sm:h-32 bg-gradient-to-br from-chili-red/30 to-tamarind-orange/30 dark:from-tamarind-orange/20 dark:to-chili-red/20 rounded-full blur-lg sm:blur-xl"
         />
         <motion.div
           style={{
             x: shapeX2,
             y: y1
           }}
-          className="absolute bottom-10 sm:bottom-20 right-4 sm:right-10 w-24 h-24 sm:w-48 sm:h-48 bg-gradient-to-br from-chili-red/15 to-tamarind-orange/15 dark:from-chili-red/15 dark:to-tamarind-orange/15 from-chili-red/25 to-tamarind-orange/25 rounded-full blur-xl sm:blur-2xl"
+          className="absolute bottom-10 sm:bottom-20 right-4 sm:right-10 w-24 h-24 sm:w-48 sm:h-48 bg-gradient-to-br from-tamarind-orange/25 to-chili-red/25 dark:from-chili-red/15 dark:to-tamarind-orange/15 rounded-full blur-xl sm:blur-2xl"
         />
         <motion.div
           style={{
             x: shapeX3,
             y: y2
           }}
-          className="absolute top-1/2 left-1/6 sm:left-1/4 w-12 h-12 sm:w-24 sm:h-24 bg-gradient-to-br from-peach-sand/20 to-maize/20 dark:from-peach-sand/20 dark:to-maize/20 from-peach-sand/35 to-maize/35 rounded-full blur-md sm:blur-lg"
+          className="absolute top-1/2 left-1/6 sm:left-1/4 w-12 h-12 sm:w-24 sm:h-24 bg-gradient-to-br from-maize/35 to-peach-sand/35 dark:from-peach-sand/20 dark:to-maize/20 rounded-full blur-md sm:blur-lg"
         />
       </div>
 
       {/* Main content with 3D transforms */}
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 py-16 sm:py-28 md:py-40 relative z-10">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 py-16 sm:py-28 md:py-40 relative z-40">
         <motion.div
           style={{
             x: contentX,
@@ -118,7 +236,7 @@ export default function VideoHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-label tracking-widest text-tamarind-orange dark:text-tamarind-orange text-chili-red text-sm sm:text-base"
+            className="font-label tracking-widest text-chili-red dark:text-tamarind-orange text-sm sm:text-base"
           >
             SparkCreatives Inc
           </motion.p>
@@ -133,9 +251,9 @@ export default function VideoHero() {
             }}
           >
             Igniting change.{" "}
-            <motion.span 
-              className="text-tamarind-orange dark:text-tamarind-orange text-chili-red inline-block"
-              whileHover={{ 
+            <motion.span
+              className="text-chili-red dark:text-tamarind-orange inline-block"
+              whileHover={{
                 scale: 1.05,
                 rotateX: 5,
                 rotateY: 5,
@@ -189,26 +307,34 @@ export default function VideoHero() {
       </div>
 
       {/* Floating particles - reduced on mobile for performance */}
-      {[...Array(typeof window !== 'undefined' && window.innerWidth < 768 ? 8 : 20)].map((_, i) => (
-        <motion.div
-          key={i}
-          style={{
-            x: particleX,
-            y: particleScrollY
-          }}
-          className="absolute w-1 h-1 bg-tamarind-orange/30 dark:bg-tamarind-orange/30 bg-chili-red/40 rounded-full hidden sm:block"
-          animate={{
-            x: [0, Math.random() * 100 - 50, 0],
-            y: [0, Math.random() * 100 - 50, 0],
-            opacity: [0.3, 0.8, 0.3]
-          }}
-          transition={{
-            duration: 3 + Math.random() * 2,
-            repeat: Infinity,
-            delay: Math.random() * 2
-          }}
-        />
-      ))}
+      {[...Array(20)].map((_, i) => {
+        // Use consistent values to avoid hydration mismatch
+        const baseX = (i * 7) % 100 - 50;
+        const baseY = (i * 11) % 100 - 50;
+        const duration = 3 + (i % 3);
+        const delay = (i % 4) * 0.5;
+        
+        return (
+          <motion.div
+            key={i}
+            style={{
+              x: particleX,
+              y: particleScrollY
+            }}
+            className="absolute w-1 h-1 bg-chili-red/40 dark:bg-tamarind-orange/30 rounded-full hidden sm:block"
+            animate={{
+              x: [0, baseX, 0],
+              y: [0, baseY, 0],
+              opacity: [0.3, 0.8, 0.3]
+            }}
+            transition={{
+              duration: duration,
+              repeat: Infinity,
+              delay: delay
+            }}
+          />
+        );
+      })}
     </section>
   );
 }

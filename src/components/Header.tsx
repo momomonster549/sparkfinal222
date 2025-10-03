@@ -26,9 +26,9 @@ export default function Header() {
 
   return (
     <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${scrolled ? "backdrop-blur-md dark:bg-black/40 bg-white/70 border-b dark:border-white/10 border-black/10 shadow-lg" : "bg-transparent"}`}>
-      <div className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
-        <Link href="#" className="flex items-center gap-3">
-          <div className="relative w-10 h-10 rounded-full bg-white dark:bg-white p-1.5">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 h-16 flex items-center justify-between">
+        <Link href="#" className="flex items-center gap-2 sm:gap-3">
+          <div className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white dark:bg-white p-1 sm:p-1.5 flex-shrink-0">
             <Image
               src={LOGO_URL}
               alt="SparkCreatives Logo"
@@ -37,15 +37,15 @@ export default function Header() {
               className="object-contain w-full h-full"
             />
           </div>
-          <span className="font-display1 text-2xl">SparkCreatives</span>
+          <span className="font-display1 text-lg sm:text-xl md:text-2xl text-[#2A1810] dark:text-[#E7E9EE]">SparkCreatives</span>
         </Link>
-        <nav className="hidden md:flex items-center gap-6">
-          {links.map(l => <a key={l.href} href={l.href} className="text-sm hover:underline">{l.label}</a>)}
+        <nav className="hidden md:flex items-center gap-4 lg:gap-6">
+          {links.map(l => <a key={l.href} href={l.href} className="text-sm hover:underline text-[#2A1810] dark:text-[#E7E9EE] transition-colors">{l.label}</a>)}
         </nav>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <ThemeToggle />
-          <div className="hidden md:block">
-            <GlowButton href="#get-involved">Sponsor a Box</GlowButton>
+          <div className="hidden sm:block">
+            <GlowButton href="#get-involved" className="text-sm sm:text-base">Sponsor a Box</GlowButton>
           </div>
         </div>
       </div>

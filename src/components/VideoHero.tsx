@@ -232,27 +232,28 @@ export default function VideoHero({ videoUrl = "https://cqxporsfudzigeimzawn.sup
           }}
           className="space-y-4 sm:space-y-6"
         >
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-label tracking-widest text-chili-red dark:text-tamarind-orange text-sm sm:text-base"
+            className="font-label tracking-widest text-tamarind-orange dark:text-tamarind-orange text-sm sm:text-base drop-shadow-md"
           >
             SparkCreatives Inc
           </motion.p>
           
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.4 }}
-            className="font-display1 text-3xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight text-[#2A1810] dark:text-[#E7E9EE]"
+            className="font-display1 text-3xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight text-white dark:text-[#E7E9EE] drop-shadow-lg"
             style={{
-              transform: `perspective(1000px) rotateX(${mousePosition.y * 2}deg) rotateY(${mousePosition.x * 2}deg)`
+              transform: `perspective(1000px) rotateX(${mousePosition.y * 2}deg) rotateY(${mousePosition.x * 2}deg)`,
+              textShadow: '0 2px 10px rgba(0,0,0,0.3)'
             }}
           >
             Igniting change.{" "}
             <motion.span
-              className="text-chili-red dark:text-tamarind-orange inline-block"
+              className="text-tamarind-orange dark:text-tamarind-orange inline-block drop-shadow-lg"
               whileHover={{
                 scale: 1.05,
                 rotateX: 5,
@@ -265,23 +266,23 @@ export default function VideoHero({ videoUrl = "https://cqxporsfudzigeimzawn.sup
             to empowerment.
           </motion.h1>
           
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-3 sm:mt-5 max-w-2xl prose-muted text-[#2A1810]/80 dark:text-[#E7E9EE]/75 text-sm sm:text-base leading-relaxed"
+            className="mt-3 sm:mt-5 max-w-2xl text-white/90 dark:text-[#E7E9EE]/90 text-sm sm:text-base md:text-lg leading-relaxed drop-shadow-md"
           >
             Sponsor a box or become a monthly donor. Your support fuels starter-kit deliveries and no-cost micro-business coaching.
           </motion.p>
           
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
             className="mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4"
           >
             <motion.div
-              whileHover={{ 
+              whileHover={{
                 scale: 1.05,
                 rotateY: 5,
                 transition: { duration: 0.3 }
@@ -289,10 +290,10 @@ export default function VideoHero({ videoUrl = "https://cqxporsfudzigeimzawn.sup
               whileTap={{ scale: 0.95 }}
               className="w-full sm:w-auto"
             >
-              <GlowButton href="#get-involved" className="w-full sm:w-auto text-center">Sponsor a Box</GlowButton>
+              <GlowButton href="#get-involved" className="w-full sm:w-auto text-center text-sm sm:text-base px-6 py-3">Sponsor a Box</GlowButton>
             </motion.div>
             <motion.div
-              whileHover={{ 
+              whileHover={{
                 scale: 1.05,
                 rotateY: -5,
                 transition: { duration: 0.3 }
@@ -300,7 +301,7 @@ export default function VideoHero({ videoUrl = "https://cqxporsfudzigeimzawn.sup
               whileTap={{ scale: 0.95 }}
               className="w-full sm:w-auto"
             >
-              <GlowButton href="#impact" className="w-full sm:w-auto text-center !bg-white/0">See Impact</GlowButton>
+              <GlowButton href="#impact" className="w-full sm:w-auto text-center !bg-white/0 text-sm sm:text-base px-6 py-3">See Impact</GlowButton>
             </motion.div>
           </motion.div>
         </motion.div>

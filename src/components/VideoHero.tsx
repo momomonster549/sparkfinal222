@@ -24,6 +24,11 @@ export default function VideoHero() {
   const springX = useSpring(mouseX, { stiffness: 150, damping: 15 });
   const springY = useSpring(mouseY, { stiffness: 150, damping: 15 });
 
+  // Particle transforms
+  const particleX = useTransform(springX, [-50, 50], [-30, 30]);
+  const particleY = useTransform(springY, [-50, 50], [-30, 30]);
+  const particleScrollY = useTransform(scrollYProgress, [0, 1], [0, -100]);
+
   useEffect(() => {
     import("lenis").then(({ default: Lenis }) => {
       const lenis = new Lenis({ smoothWheel: true });
@@ -181,9 +186,8 @@ export default function VideoHero() {
         <motion.div
           key={i}
           style={{
-            x: useTransform(springX, [-50, 50], [-30, 30]),
-            y: useTransform(springY, [-50, 50], [-30, 30]),
-            y: useTransform(scrollYProgress, [0, 1], [0, -100])
+            x: particleX,
+            y: particleScrollY
           }}
           className="absolute w-1 h-1 bg-tamarind-orange/30 dark:bg-tamarind-orange/30 bg-chili-red/40 rounded-full hidden sm:block"
           animate={{

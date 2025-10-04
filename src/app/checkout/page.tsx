@@ -58,28 +58,24 @@ function CheckoutContent() {
         const Square = (window as any).Square;
         let appId = process.env.NEXT_PUBLIC_SQUARE_APPLICATION_ID;
         const locationId = process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID;
+        const environment = process.env.NEXT_PUBLIC_SQUARE_ENVIRONMENT;
 
-        console.log('Square credentials (raw):', { appId, locationId });
+        console.log('Square credentials (raw):', { appId, locationId, environment });
         console.log('Square SDK version:', Square);
 
         if (!appId) {
           throw new Error('Missing Square Application ID. Please check NEXT_PUBLIC_SQUARE_APPLICATION_ID environment variable.');
         }
 
-        if (!locationId) {
-          throw new Error('Missing Square Location ID. Please check NEXT_PUBLIC_SQUARE_LOCATION_ID environment variable.');
-        }
-
-        // For sandbox environment, use the location ID as the application ID
-        // This is a Square Web Payments SDK requirement
-        if (appId.startsWith('sandbox-')) {
-          console.log('Using location ID for sandbox payments initialization');
-          appId = locationId;
+        // For sandbox testing, use 'sandbox' as the application ID
+        if (environment === 'sandbox') {
+          console.log('Using sandbox environment, setting appId to "sandbox"');
+          appId = 'sandbox';
         }
 
         console.log('Creating Square payments instance with appId:', appId);
-        // Web Payments SDK only takes application ID, NOT location ID
-        const payments = await Square.payments(appId, locationId);
+        // Web Payments SDK only takes application ID (no location ID parameter)
+        const payments = await Square.payments(appId);
         console.log('Payments instance created successfully!');
 
         console.log('Creating card form...');

@@ -2,7 +2,7 @@ import Section from "@/components/Section";
 import VideoHero from "@/components/VideoHero";
 import SimpleVideo from "@/components/SimpleVideo";
 import ImpactStrip from "@/components/ImpactStrip";
-import LogoWall from "@/components/LogoWall";
+import PartnersSlideshow from "@/components/PartnersSlideshow";
 import GlowButton from "@/components/GlowButton";
 import ExperienceCard from "@/components/ExperienceCard";
 import DonationCard from "@/components/DonationCard";
@@ -65,9 +65,13 @@ export default function Page() {
       </Section>
 
       <Section id="partners" kicker="Partners & supporters" title="It takes a community">
-        <LogoWall logos={[
-          {name:"Maple Bear ELC"}, {name:"Compostela Elementary"}, {name:"Local Donors"}, {name:"Logistics Partners"}, {name:"Tech Allies"},
-        ]}/>
+        <PartnersSlideshow partners={[
+          {name:"Maple Bear ELC", category:"Educational Partner", description:"Supporting early childhood education and community development"},
+          {name:"Compostela Elementary", category:"School Partner", description:"Collaborating to provide essential resources to students and families"},
+          {name:"Local Donors", category:"Community Support", description:"Generous individuals and organizations making a difference in our community"},
+          {name:"Logistics Partners", category:"Distribution Network", description:"Ensuring efficient delivery of resources to those who need them most"},
+          {name:"Tech Allies", category:"Technology Support", description:"Modern solutions and digital infrastructure for community impact"},
+        ]} />
       </Section>
 
       <Section id="faq" kicker="FAQ" title="Good to know">

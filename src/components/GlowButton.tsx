@@ -50,7 +50,7 @@ export default function GlowButton({ href = "#", onClick, className = "", childr
         rotateY,
         transformStyle: "preserve-3d",
       }}
-      className={`inline-flex items-center justify-center rounded-full px-4 sm:px-5 py-3 text-sm font-label tracking-wider uppercase ring-glow bg-white/5 border border-white/10 hover:bg-white/10 dark:bg-white/5 dark:border-white/10 dark:hover:bg-white/10 bg-tamarind-orange/10 border-tamarind-orange/20 hover:bg-tamarind-orange/20 text-[#2A1810] dark:text-[#E7E9EE] transition relative overflow-hidden touch-target min-h-[44px] ${className}`}
+      className={`inline-flex items-center justify-center rounded-full px-4 sm:px-5 py-3 text-sm font-label tracking-wider uppercase ring-glow bg-white/5 border border-white/10 hover:bg-white/10 bg-tamarind-orange/10 border-tamarind-orange/20 hover:bg-tamarind-orange/20 text-[#E7E9EE] transition relative overflow-hidden touch-target min-h-[44px] ${className}`}
     >
       {/* Background glow effect */}
       <motion.div

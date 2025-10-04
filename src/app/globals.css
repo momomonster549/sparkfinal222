@@ -19,30 +19,12 @@ body {
   background-attachment: fixed, fixed;
 }
 
-/* Light mode */
-:root:not(.dark) body {
-  @apply bg-cream text-[#2A1810];
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAJElEQVQoU2NkYGD4z0AEYBxVSFYBYRjGQbGQwGkQFQ2kQ0g8AQByrQK4D2x2WQAAAABJRU5ErkJggg=="),
-    radial-gradient(1000px 600px at 10% -20%, rgba(241,151,56,0.15), transparent),
-    radial-gradient(800px 400px at 90% 10%, rgba(215,67,12,0.12), transparent),
-    linear-gradient(135deg, rgba(254,238,204,0.8) 0%, rgba(240,207,168,0.6) 100%);
-  background-blend-mode: overlay, normal, normal, normal;
-}
 
 .prose-muted { color: rgba(231,233,238,0.75); }
-:root:not(.dark) .prose-muted { color: rgba(42,24,16,0.8); }
 
 .surface { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(8px); }
-:root:not(.dark) .surface { 
-  background: rgba(255,255,255,0.8); 
-  border: 1px solid rgba(42,24,16,0.15); 
-  box-shadow: 0 4px 12px rgba(42,24,16,0.1);
-}
 
 .ring-glow { box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 0 24px rgba(241,151,56,0.25); }
-:root:not(.dark) .ring-glow { 
-  box-shadow: 0 0 0 1px rgba(241,151,56,0.3), 0 0 20px rgba(241,151,56,0.2), 0 4px 12px rgba(42,24,16,0.1);
-}
 
 :where(a, button, input, [role="button"]){ outline: none; }
 :where(a, button, input, [role="button"]):focus-visible{

@@ -12,11 +12,12 @@ const securityHeaders = [
   { key: "Content-Security-Policy", value:
     [
       "default-src 'self'",
-      `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval'" : ""} blob:`,
+      `script-src 'self' 'unsafe-inline' ${isDev ? "'unsafe-eval'" : ""} blob: https://sandbox.web.squarecdn.com https://web.squarecdn.com`,
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https:",
       "font-src 'self' data: https://fonts.gstatic.com",
       "connect-src 'self' https:",
+      "frame-src 'self' https://sandbox.web.squarecdn.com https://web.squarecdn.com",
       "media-src 'self' https://cqxporsfudzigeimzawn.supabase.co https://commondatastorage.googleapis.com https://sample-videos.com",
       "frame-ancestors 'self'",
       "base-uri 'self'",

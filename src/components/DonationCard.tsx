@@ -1,7 +1,8 @@
 "use client";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
-import GlowButton from "./GlowButton";
+import { useRouter } from "next/navigation";
+import { DonationTier } from "@/types/donations";
 
 interface DonationCardProps {
   tier: string;
@@ -11,19 +12,24 @@ interface DonationCardProps {
   icon: string;
   color: string;
   index: number;
+  amount?: number;
+  donationTier?: DonationTier;
 }
 
-export default function DonationCard({ 
-  tier, 
-  price, 
-  bullets, 
-  cta, 
-  icon, 
-  color, 
-  index 
+export default function DonationCard({
+  tier,
+  price,
+  bullets,
+  cta,
+  icon,
+  color,
+  index,
+  amount = 25,
+  donationTier = 'supply-boost'
 }: DonationCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const router = useRouter();
   
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -85,7 +91,7 @@ export default function DonationCard({
         >
           {/* Gradient background overlay */}
           <motion.div
-            className={`absolute inset-0 bg-gradient-to-br ${color} opacity-0 rounded-2xl`}
+            className={`absolute inset-0 bg-gradient-to-br ${color} opacity-0 rounded-2xl pointer-events-none`}
             animate={{
               opacity: isHovered ? 0.1 : 0,
             }}
@@ -94,16 +100,16 @@ export default function DonationCard({
 
           {/* Floating background elements */}
           <motion.div
-            className={`absolute top-4 right-4 w-16 h-16 bg-gradient-to-br ${color} opacity-20 rounded-full blur-sm`}
+            className={`absolute top-4 right-4 w-16 h-16 bg-gradient-to-br ${color} opacity-20 rounded-full blur-sm pointer-events-none`}
             animate={{
               scale: isHovered ? [1, 1.3, 1] : 1,
               rotate: isHovered ? [0, 180, 360] : 0,
             }}
             transition={{ duration: 2, repeat: isHovered ? Infinity : 0 }}
           />
-          
+
           <motion.div
-            className={`absolute bottom-4 left-4 w-12 h-12 bg-gradient-to-br ${color} opacity-15 rounded-full blur-sm`}
+            className={`absolute bottom-4 left-4 w-12 h-12 bg-gradient-to-br ${color} opacity-15 rounded-full blur-sm pointer-events-none`}
             animate={{
               scale: isHovered ? [1, 1.4, 1] : 1,
               rotate: isHovered ? [0, -180, -360] : 0,
@@ -185,14 +191,22 @@ export default function DonationCard({
             transition={{ duration: 0.3 }}
           >
             <motion.div
-              whileHover={{ 
+              whileHover={{
                 scale: 1.05,
                 rotateY: 5,
                 transition: { duration: 0.3 }
               }}
               whileTap={{ scale: 0.95 }}
             >
-              <GlowButton href="#donate">{cta}</GlowButton>
+              <button
+                onClick={() => {
+                  const donationType = donationTier === 'monthly-ally' ? 'monthly' : 'one-time';
+                  router.push(`/checkout?amount=${amount}&tier=${donationTier}&type=${donationType}`);
+                }}
+                className="w-full py-3 px-6 bg-tamarind-orange hover:bg-tamarind-orange/90 text-white font-medium rounded-lg transition-all shadow-[0_0_20px_rgba(241,151,56,0.3)] hover:shadow-[0_0_30px_rgba(241,151,56,0.5)]"
+              >
+                {cta}
+              </button>
             </motion.div>
           </motion.div>
 
@@ -202,7 +216,7 @@ export default function DonationCard({
               {[...Array(8)].map((_, j) => (
                 <motion.div
                   key={j}
-                  className="absolute w-1 h-1 bg-tamarind-orange/60 rounded-full"
+                  className="absolute w-1 h-1 bg-tamarind-orange/60 rounded-full pointer-events-none"
                   initial={{
                     x: Math.random() * 300,
                     y: Math.random() * 300,
@@ -224,7 +238,7 @@ export default function DonationCard({
 
           {/* Glow effect on hover */}
           <motion.div
-            className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${color} opacity-0`}
+            className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${color} opacity-0 pointer-events-none`}
             animate={{
               opacity: isHovered ? 0.05 : 0,
             }}

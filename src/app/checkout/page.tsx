@@ -1,9 +1,9 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { DonationType, DonationTier } from "@/types/donations";
 
-export default function CheckoutPage() {
+function CheckoutContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -366,5 +366,17 @@ export default function CheckoutPage() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function CheckoutPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-cream dark:bg-[#0A0B10]">
+        <div className="text-[#2A1810] dark:text-[#E7E9EE]">Loading checkout...</div>
+      </div>
+    }>
+      <CheckoutContent />
+    </Suspense>
   );
 }

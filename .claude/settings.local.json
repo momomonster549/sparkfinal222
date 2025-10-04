@@ -8,7 +8,14 @@
       "Bash(git commit -m \"$(cat <<''EOF''\nAdd video hero with Supabase integration and logo\n\n- Add VideoHero component with video background support\n- Integrate Supabase video and logo assets\n- Update CSP to allow media from Supabase\n- Add logo to header with circular background\n- Fix theme compatibility for light/dark modes\n- Add SimpleVideo test component\n- Update Next.js config for remote images\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
       "Bash(git push:*)",
       "Bash(vercel:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(npm install:*)",
+      "Bash(test:*)",
+      "Bash(npm ls:*)",
+      "Bash(node:*)",
+      "Bash(npm run dev:*)",
+      "WebSearch",
+      "Bash(npm uninstall:*)"
     ],
     "deny": [],
     "ask": []

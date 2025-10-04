@@ -1,8 +1,6 @@
 "use client";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
-import { useRouter } from "next/navigation";
-import { DonationTier } from "@/types/donations";
 
 interface DonationCardProps {
   tier: string;
@@ -12,8 +10,6 @@ interface DonationCardProps {
   icon: string;
   color: string;
   index: number;
-  amount?: number;
-  donationTier?: DonationTier;
 }
 
 export default function DonationCard({
@@ -24,12 +20,9 @@ export default function DonationCard({
   icon,
   color,
   index,
-  amount = 25,
-  donationTier = 'supply-boost'
 }: DonationCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
-  const router = useRouter();
   
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -198,15 +191,14 @@ export default function DonationCard({
               }}
               whileTap={{ scale: 0.95 }}
             >
-              <button
-                onClick={() => {
-                  const donationType = donationTier === 'monthly-ally' ? 'monthly' : 'one-time';
-                  router.push(`/checkout?amount=${amount}&tier=${donationTier}&type=${donationType}`);
-                }}
-                className="w-full py-3 px-6 bg-tamarind-orange hover:bg-tamarind-orange/90 text-white font-medium rounded-lg transition-all shadow-[0_0_20px_rgba(241,151,56,0.3)] hover:shadow-[0_0_30px_rgba(241,151,56,0.5)]"
+              <a
+                href="https://app.sparkcreativesinc.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3 px-6 bg-tamarind-orange hover:bg-tamarind-orange/90 text-white font-medium rounded-lg transition-all shadow-[0_0_20px_rgba(241,151,56,0.3)] hover:shadow-[0_0_30px_rgba(241,151,56,0.5)] text-center block"
               >
                 {cta}
-              </button>
+              </a>
             </motion.div>
           </motion.div>
 

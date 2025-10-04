@@ -43,9 +43,9 @@ export default function Page() {
       <Section id="get-involved" kicker="Get involved" title="Fuel the next box">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
           {[
-            {tier:"Supply Boost", price:"$25", bullets:["Fill gaps in a kit","Covers supplies & packing"], cta:"Donate $25", icon:"📦", color:"from-tamarind-orange to-chili-red"},
-            {tier:"Sponsor a Box", price:"$100", bullets:["Fund a complete starter-kit","Help deliver it with tracking"], cta:"Donate $100", icon:"🎁", color:"from-chili-red to-burnt-sienna"},
-            {tier:"Monthly Ally", price:"/mo", bullets:["Reliable ongoing support","We'll show your impact"], cta:"Become a Member", icon:"💝", color:"from-burnt-sienna to-cacao-brown"},
+            {tier:"Supply Boost", price:"$25", bullets:["Fill gaps in a kit","Covers supplies & packing"], cta:"Donate $25", icon:"📦", color:"from-tamarind-orange to-chili-red", amount: 25, donationTier: 'supply-boost' as const},
+            {tier:"Sponsor a Box", price:"$100", bullets:["Fund a complete starter-kit","Help deliver it with tracking"], cta:"Donate $100", icon:"🎁", color:"from-chili-red to-burnt-sienna", amount: 100, donationTier: 'sponsor-box' as const},
+            {tier:"Monthly Ally", price:"/mo", bullets:["Reliable ongoing support","We'll show your impact"], cta:"Become a Member", icon:"💝", color:"from-burnt-sienna to-cacao-brown", amount: 25, donationTier: 'monthly-ally' as const},
           ].map((card,i)=> (
             <DonationCard key={i} {...card} index={i} />
           ))}

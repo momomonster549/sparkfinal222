@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { squareClient, SQUARE_LOCATION_ID, generateIdempotencyKey, dollarsToCents } from '@/lib/square';
+import { getSquareClient, getSquareLocationId, generateIdempotencyKey, dollarsToCents } from '@/lib/square';
 
 export async function POST(request: NextRequest) {
   try {
@@ -20,6 +20,10 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+
+    // Get Square client and location
+    const squareClient = getSquareClient();
+    const locationId = getSquareLocationId();
 
     // Create customer first
     const customerResponse = await squareClient.customers.create({
@@ -68,7 +72,7 @@ export async function POST(request: NextRequest) {
     // Create subscription
     const subscriptionResponse = await squareClient.subscriptions.create({
       idempotencyKey: generateIdempotencyKey(),
-      locationId: SQUARE_LOCATION_ID,
+      locationId,
       planVariationId: planId,
       customerId: customerId,
       cardId: sourceId,

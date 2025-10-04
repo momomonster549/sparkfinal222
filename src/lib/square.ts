@@ -1,26 +1,35 @@
 import { SquareClient, SquareEnvironment } from 'square';
 
-if (!process.env.SQUARE_ACCESS_TOKEN) {
-  throw new Error('SQUARE_ACCESS_TOKEN is not defined in environment variables');
+// Lazy initialization - only create client when actually used
+let _squareClient: SquareClient | null = null;
+
+export function getSquareClient(): SquareClient {
+  if (!_squareClient) {
+    if (!process.env.SQUARE_ACCESS_TOKEN) {
+      throw new Error('SQUARE_ACCESS_TOKEN is not defined in environment variables');
+    }
+
+    if (!process.env.SQUARE_ENVIRONMENT) {
+      throw new Error('SQUARE_ENVIRONMENT is not defined in environment variables');
+    }
+
+    _squareClient = new SquareClient({
+      token: process.env.SQUARE_ACCESS_TOKEN,
+      environment: process.env.SQUARE_ENVIRONMENT === 'production'
+        ? SquareEnvironment.Production
+        : SquareEnvironment.Sandbox,
+    });
+  }
+
+  return _squareClient;
 }
 
-if (!process.env.SQUARE_ENVIRONMENT) {
-  throw new Error('SQUARE_ENVIRONMENT is not defined in environment variables');
+export function getSquareLocationId(): string {
+  if (!process.env.SQUARE_LOCATION_ID) {
+    throw new Error('SQUARE_LOCATION_ID is not defined in environment variables');
+  }
+  return process.env.SQUARE_LOCATION_ID;
 }
-
-if (!process.env.SQUARE_LOCATION_ID) {
-  throw new Error('SQUARE_LOCATION_ID is not defined in environment variables');
-}
-
-// Initialize Square client
-export const squareClient = new SquareClient({
-  token: process.env.SQUARE_ACCESS_TOKEN,
-  environment: process.env.SQUARE_ENVIRONMENT === 'production'
-    ? SquareEnvironment.Production
-    : SquareEnvironment.Sandbox,
-});
-
-export const SQUARE_LOCATION_ID = process.env.SQUARE_LOCATION_ID;
 
 // Helper to generate idempotency keys (prevents duplicate charges)
 export function generateIdempotencyKey(): string {

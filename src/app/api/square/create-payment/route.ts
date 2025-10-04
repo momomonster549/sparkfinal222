@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { squareClient, SQUARE_LOCATION_ID, generateIdempotencyKey, dollarsToCents } from '@/lib/square';
+import { getSquareClient, getSquareLocationId, generateIdempotencyKey, dollarsToCents } from '@/lib/square';
 
 export async function POST(request: NextRequest) {
   try {
@@ -22,6 +22,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Create payment
+    const squareClient = getSquareClient();
+    const locationId = getSquareLocationId();
+
     const response = await squareClient.payments.create({
       sourceId,
       idempotencyKey: generateIdempotencyKey(),
@@ -29,7 +32,7 @@ export async function POST(request: NextRequest) {
         amount: dollarsToCents(amount),
         currency: 'USD',
       },
-      locationId: SQUARE_LOCATION_ID,
+      locationId,
       buyerEmailAddress: email,
       note: `Donation from ${name || 'Anonymous'} - SparkCreatives Inc.`,
     });

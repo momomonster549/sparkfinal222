@@ -43,9 +43,9 @@ export default function Page() {
       <Section id="get-involved" kicker="Get involved" title="Fuel the next box">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
           {[
-            {tier:"Supply Boost", price:"$25", bullets:["Fill gaps in a kit","Covers supplies & packing"], cta:"Donate $25", icon:"📦", color:"from-tamarind-orange to-chili-red", amount: 25, donationTier: 'supply-boost' as const},
-            {tier:"Sponsor a Box", price:"$100", bullets:["Fund a complete starter-kit","Help deliver it with tracking"], cta:"Donate $100", icon:"🎁", color:"from-chili-red to-burnt-sienna", amount: 100, donationTier: 'sponsor-box' as const},
-            {tier:"Monthly Ally", price:"/mo", bullets:["Reliable ongoing support","We'll show your impact"], cta:"Become a Member", icon:"💝", color:"from-burnt-sienna to-cacao-brown", amount: 25, donationTier: 'monthly-ally' as const},
+            {tier:"Supply Boost", price:"$50", bullets:["Fill gaps in a kit","Covers supplies & packing"], cta:"Donate $25", icon:"📦", color:"from-tamarind-orange to-chili-red", amount: 25, donationTier: 'supply-boost' as const},
+            {tier:"Sponsor a Box", price:"$150", bullets:["Fund a complete starter-kit","Help deliver it with tracking"], cta:"Donate $100", icon:"🎁", color:"from-chili-red to-burnt-sienna", amount: 100, donationTier: 'sponsor-box' as const},
+            {tier:"Monthly Ally", price:"25/mo", bullets:["Reliable ongoing support","We'll show your impact"], cta:"Become a Member", icon:"💝", color:"from-burnt-sienna to-cacao-brown", amount: 25, donationTier: 'monthly-ally' as const},
           ].map((card,i)=> (
             <DonationCard key={i} {...card} index={i} />
           ))}
@@ -66,11 +66,11 @@ export default function Page() {
 
       <Section id="partners" kicker="Partners & supporters" title="It takes a community">
         <PartnersSlideshow partners={[
-          {name:"Maple Bear ELC", category:"Educational Partner", description:"Supporting early childhood education and community development"},
-          {name:"Compostela Elementary", category:"School Partner", description:"Collaborating to provide essential resources to students and families"},
-          {name:"Local Donors", category:"Community Support", description:"Generous individuals and organizations making a difference in our community"},
-          {name:"Logistics Partners", category:"Distribution Network", description:"Ensuring efficient delivery of resources to those who need them most"},
-          {name:"Tech Allies", category:"Technology Support", description:"Modern solutions and digital infrastructure for community impact"},
+          {name:"Maple Bear Early Learning Center  St Johns, FL", category:"Educational Partner", description:"Supporting early childhood education and community development"},
+          {name:"Compostela Elementary School - Cebu, Philippines", category:"School Partner", description:"Collaborating to provide essential resources to students and families"},
+          {name:"Local Partners SPJ2 Catholic Church - Ponte Vedra Beach, FL", category:"Community Support", description:"Generous individuals and organizations making a difference in our community"},
+          {name:"Logistics Partners - UMAC Cargo, UMAC Express, etc.", category:"Distribution Network", description:"Ensuring efficient delivery of resources to those who need them most"},
+          {name:"Tech Allies - Google, Canva, Microsoft 365, Adobe, Zoom, Figma, Slack, etc.", category:"Technology Support", description:"Modern solutions and digital infrastructure for nonprofit community impact"},
         ]} />
       </Section>
 

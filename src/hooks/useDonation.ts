@@ -16,7 +16,7 @@ interface DonationOptions {
 interface UseDonationReturn {
   isLoading: boolean;
   error: string | null;
-  handleQuickDonation: (amount: number) => Promise<void>;
+  handleQuickDonation: (amount: number, donorInfo?: { name?: string; email?: string; isAnonymous?: boolean }) => Promise<void>;
   handleCustomDonation: (amount: number, donorInfo?: DonationOptions['donorInfo']) => Promise<string>;
   clearError: () => void;
 }
@@ -25,7 +25,7 @@ export function useDonation(campaign: string = 'general'): UseDonationReturn {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleQuickDonation = async (amount: number) => {
+  const handleQuickDonation = async (amount: number, donorInfo?: { name?: string; email?: string; isAnonymous?: boolean }) => {
     setIsLoading(true);
     setError(null);
 
@@ -42,6 +42,9 @@ export function useDonation(campaign: string = 'general'): UseDonationReturn {
             campaign,
             source: 'quick-donation-button',
             amount: amount.toString(),
+            donorName: donorInfo?.name || '',
+            donorEmail: donorInfo?.email || '',
+            isAnonymous: donorInfo?.isAnonymous || false,
           },
         }),
       });

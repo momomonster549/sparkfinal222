@@ -46,7 +46,7 @@ export default function CustomAmountDonation({
     e.preventDefault();
     if (amount > 0 && isValidAmount) {
       // Enhanced donation with donor info
-      await handleQuickDonation(amount);
+      await handleQuickDonation(amount, donorInfo);
     }
   };
 

@@ -188,12 +188,12 @@ export default function EarthquakeFundPage() {
                   🌟
                 </div>
                 <div>
-                  <h3 className="font-display2 text-base sm:text-lg text-white">Maria&apos;s Family</h3>
+                  <h3 className="font-display2 text-base sm:text-lg text-white">Teresita G. From Cebu, Philippines</h3>
                   <p className="prose-muted text-xs sm:text-sm text-white/70">Cebu, Philippines</p>
                 </div>
               </div>
               <p className="prose-muted text-sm sm:text-base text-white/80">
-                &ldquo;When the earthquake destroyed our home, we thought we had lost everything. The emergency kit gave us hope and the basic supplies we needed to start rebuilding our lives.&rdquo;
+                &ldquo;Mapasalamaton kaayo mi sa Spark Creatives, nga bisan sa kalayo sa among dapit og sa kalisod nga dalan dala sa kakusog nga linog,  nipadayon gihapon sa pagpadangat og tabang diri namo. Sa mga pagkaon og tubig nga inyo gipaambit, dako kaayo ni nga grasya nga naghatag kanamo og paglaum nga magpadayon. Daghang Salamat,Spark Creatives!&rdquo;
               </p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 sm:p-6 md:p-8 border border-white/20">
@@ -202,12 +202,12 @@ export default function EarthquakeFundPage() {
                   💪
                 </div>
                 <div>
-                  <h3 className="font-display2 text-base sm:text-lg text-white">The Johnson Family</h3>
-                  <p className="prose-muted text-xs sm:text-sm text-white/70">Jacksonville, FL</p>
+                  <h3 className="font-display2 text-base sm:text-lg text-white">Estella M. From Cebu, Philippines</h3>
+                  <p className="prose-muted text-xs sm:text-sm text-white/70">Cebu, Philippines</p>
                 </div>
               </div>
               <p className="prose-muted text-sm sm:text-base text-white/80">
-                &ldquo;After the earthquake, we struggled to make ends meet. The emergency supplies helped us through the toughest weeks while we got back on our feet.&rdquo;
+                &ldquo;Daghan kaayong salamat, Spark Creatives, sa tubig og pagkaon nga  among natagamtam, sa malumo nga kasingkasing nga gipadayag og simpatiya kanamo. Kini naghatag og kadasig og igong kusog sa pagpadayon bisan pa man sa kalisdanan&rdquo;
               </p>
             </div>
           </div>

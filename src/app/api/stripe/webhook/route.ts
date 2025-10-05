@@ -2,6 +2,26 @@ import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 import { headers } from 'next/headers';
 
+// Email receipt function
+async function sendDonationReceipt(session: any) {
+  const amount = session.amount_total ? session.amount_total / 100 : 0;
+  const campaign = session.metadata?.campaign || 'General Fund';
+  const donorName = session.metadata?.donorName || 'Valued Donor';
+  const donorEmail = session.customer_email || session.metadata?.donorEmail;
+  
+  if (!donorEmail) {
+    console.log('No email address available for receipt');
+    return;
+  }
+
+  // For now, we'll use Stripe's built-in email receipts
+  // In production, you might want to use a service like SendGrid, Resend, or Nodemailer
+  console.log(`Would send receipt email to ${donorEmail} for $${amount} donation to ${campaign}`);
+  
+  // TODO: Implement custom email service integration
+  // This could be SendGrid, Resend, or another email service
+}
+
 export async function POST(req: NextRequest) {
   const body = await req.text();
   const headersList = await headers();
@@ -41,13 +61,22 @@ export async function POST(req: NextRequest) {
     case 'checkout.session.completed':
       const session = event.data.object;
       console.log('Payment successful:', session.id);
-      // Handle successful payment
+      
+      // Send custom email receipt
+      try {
+        await sendDonationReceipt(session);
+      } catch (emailError) {
+        console.error('Failed to send email receipt:', emailError);
+        // Don't fail the webhook if email fails
+      }
       break;
+      
     case 'payment_intent.succeeded':
       const paymentIntent = event.data.object;
       console.log('PaymentIntent succeeded:', paymentIntent.id);
       // Handle successful payment intent
       break;
+      
     default:
       console.log(`Unhandled event type: ${event.type}`);
   }

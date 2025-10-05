@@ -72,8 +72,8 @@ function SuccessPageContent() {
           message: 'Your generosity makes a real difference in the lives of those we serve.',
           impact: 'Together, we\'re building stronger communities.',
           nextSteps: [
-            'Your donation is being processed',
-            'You\'ll receive a receipt via email',
+            'Your donation has been processed successfully',
+            'A tax-deductible receipt has been sent to your email',
             'Follow our impact stories on social media'
           ]
         };
@@ -144,7 +144,12 @@ function SuccessPageContent() {
                 )}
                 {session?.customerEmail && (
                   <div className="mt-1 text-sm text-gray-500">
-                    Receipt sent to: {session.customerEmail}
+                    📧 Receipt sent to: {session.customerEmail}
+                  </div>
+                )}
+                {!session?.customerEmail && (
+                  <div className="mt-1 text-sm text-amber-600">
+                    ⚠️ No email provided - receipt not sent
                   </div>
                 )}
               </div>

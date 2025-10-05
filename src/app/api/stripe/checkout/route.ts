@@ -33,6 +33,17 @@ export async function POST(req: NextRequest) {
       metadata,
       customer_creation: 'if_required',
       allow_promotion_codes: true,
+      // Enable automatic email receipts
+      receipt_email: metadata.donorEmail || undefined,
+      // Configure email settings
+      payment_intent_data: {
+        receipt_email: metadata.donorEmail || undefined,
+        metadata: {
+          ...metadata,
+          donation_type: 'charitable_contribution',
+          tax_deductible: 'true',
+        },
+      },
     });
 
     return NextResponse.json({ sessionId: session.id });

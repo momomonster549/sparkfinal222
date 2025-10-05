@@ -112,7 +112,7 @@ In Vercel Dashboard → **Settings** → **Environment Variables**, add:
 ## Step 5: Verify Deployment
 
 1. Visit https://sparkcreativesinc.org
-2. Test light/dark mode toggle
+
 3. Verify header blur effect on scroll
 4. Check browser console for CSP errors (should be none)
 5. Test Web Vitals in production

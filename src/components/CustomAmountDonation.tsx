@@ -85,12 +85,14 @@ export default function CustomAmountDonation({
         {/* Amount Input Section */}
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-white mb-3">
+            <label htmlFor="donation-amount" className="block text-sm font-medium text-white mb-3">
               Donation Amount
             </label>
             <div className="relative">
               <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/70 text-xl font-bold">$</span>
               <input
+                id="donation-amount"
+                name="donation-amount"
                 type="number"
                 value={amount}
                 onChange={(e) => setAmount(Number(e.target.value))}
@@ -147,10 +149,12 @@ export default function CustomAmountDonation({
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-medium text-white/80 mb-2">
+              <label htmlFor="donor-name" className="block text-xs font-medium text-white/80 mb-2">
                 Name
               </label>
               <input
+                id="donor-name"
+                name="donor-name"
                 type="text"
                 value={donorInfo.name}
                 onChange={(e) => setDonorInfo(prev => ({ ...prev, name: e.target.value }))}
@@ -161,10 +165,12 @@ export default function CustomAmountDonation({
             </div>
             
             <div>
-              <label className="block text-xs font-medium text-white/80 mb-2">
+              <label htmlFor="donor-email" className="block text-xs font-medium text-white/80 mb-2">
                 Email
               </label>
               <input
+                id="donor-email"
+                name="donor-email"
                 type="email"
                 value={donorInfo.email}
                 onChange={(e) => setDonorInfo(prev => ({ ...prev, email: e.target.value }))}

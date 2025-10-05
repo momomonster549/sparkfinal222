@@ -12,6 +12,10 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Debug: Log the metadata to see what email data we're receiving
+    console.log('Checkout session metadata:', metadata);
+    console.log('Donor email from metadata:', metadata.donorEmail);
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [
@@ -33,7 +37,9 @@ export async function POST(req: NextRequest) {
       metadata,
       customer_creation: 'if_required',
       allow_promotion_codes: true,
-      // Configure email settings for payment intent
+      // Enable automatic email receipts
+      customer_email: metadata.donorEmail || undefined,
+      // Configure payment intent with receipt settings
       payment_intent_data: {
         receipt_email: metadata.donorEmail || undefined,
         metadata: {

@@ -9,17 +9,43 @@ async function sendDonationReceipt(session: any) {
   const donorName = session.metadata?.donorName || 'Valued Donor';
   const donorEmail = session.customer_email || session.metadata?.donorEmail;
   
+  console.log('Session data for receipt:', {
+    sessionId: session.id,
+    amount,
+    campaign,
+    donorName,
+    donorEmail,
+    customerEmail: session.customer_email,
+    metadata: session.metadata
+  });
+  
   if (!donorEmail) {
     console.log('No email address available for receipt');
     return;
   }
 
-  // For now, we'll use Stripe's built-in email receipts
-  // In production, you might want to use a service like SendGrid, Resend, or Nodemailer
-  console.log(`Would send receipt email to ${donorEmail} for $${amount} donation to ${campaign}`);
-  
-  // TODO: Implement custom email service integration
-  // This could be SendGrid, Resend, or another email service
+  try {
+    // Try to send receipt via Stripe's API
+    if (session.payment_intent) {
+      console.log('Sending receipt via Stripe API for payment intent:', session.payment_intent);
+      
+      // Update the payment intent to include receipt email
+      await stripe.paymentIntents.update(session.payment_intent, {
+        receipt_email: donorEmail,
+        metadata: {
+          ...session.metadata,
+          receipt_sent: 'true',
+          receipt_sent_at: new Date().toISOString()
+        }
+      });
+      
+      console.log(`Receipt email sent to ${donorEmail} for $${amount} donation to ${campaign}`);
+    } else {
+      console.log('No payment intent found in session');
+    }
+  } catch (error) {
+    console.error('Failed to send receipt via Stripe API:', error);
+  }
 }
 
 export async function POST(req: NextRequest) {

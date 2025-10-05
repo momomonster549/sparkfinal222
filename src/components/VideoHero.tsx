@@ -292,10 +292,10 @@ export default function VideoHero({ videoUrl = "https://cqxporsfudzigeimzawn.sup
               className="w-full sm:w-auto"
             >
               <GlowButton 
-                href="/emergencyfund" 
+                href="/earthquakefund" 
                 className="w-full sm:w-auto text-center text-sm sm:text-base px-6 py-3 !bg-red-600 hover:!bg-red-700 !text-white border-2 border-white shadow-lg"
               >
-                CEBU EMERGENCY
+                CEBU EARTHQUAKE
               </GlowButton>
             </motion.div>
             <motion.div

@@ -12,11 +12,14 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    "@stripe/react-stripe-js": "^2.8.0",
+    "@stripe/stripe-js": "^4.8.0",
     "framer-motion": "^11.3.30",
     "lenis": "^1.0.35",
     "next": "15.5.4",
     "react": "18.3.1",
     "react-dom": "18.3.1",
+    "stripe": "^16.8.0",
     "web-vitals": "^4.2.4"
   },
   "devDependencies": {

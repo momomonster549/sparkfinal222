@@ -9,7 +9,7 @@ Improvements applied per code audit:
 - ✅ Security headers + baseline CSP in `next.config.ts`
 - ✅ Jest + React Testing Library scaffolding
 - ✅ CI workflow (lint, typecheck, test, build)
-- ✅ **Square Payments Integration** 🆕
+- ✅ **Stripe Payments Integration** 🆕
 
 ## Quickstart
 ```bash
@@ -21,51 +21,49 @@ Populate env from `.env.example` as you add analytics/SaaS.
 
 Swap donate URLs, impact numbers, agenda, and partners in `src/app/page.tsx`.
 
-## 💳 Square Integration
+## 💳 Stripe Integration
 
-This project includes a complete Square payments integration. See the dedicated documentation:
+This project includes a complete Stripe payments integration. See the dedicated documentation:
 
-- **[Square Setup Guide](SQUARE_SETUP.md)** - Complete setup instructions
-- **[Integration Summary](SQUARE_INTEGRATION_SUMMARY.md)** - Quick overview
-- **[Setup Checklist](SQUARE_CHECKLIST.md)** - Step-by-step checklist
+- **[Stripe Setup Guide](STRIPE_SETUP.md)** - Complete setup instructions
+- **[Quick Start Guide](STRIPE_QUICK_START.md)** - 2-minute setup
 
-### Quick Square Setup
+### Quick Stripe Setup
 
 1. Install dependencies:
    ```bash
    npm install
    ```
 
-2. Get your Square credentials from [developer.squareup.com](https://developer.squareup.com/apps)
+2. Get your Stripe API keys from [dashboard.stripe.com](https://dashboard.stripe.com/)
 
 3. Update `.env.local` with your credentials:
    ```env
-   SQUARE_ACCESS_TOKEN=your_sandbox_token
-   SQUARE_APPLICATION_ID=your_app_id
-   SQUARE_LOCATION_ID=your_location_id
-   SQUARE_ENVIRONMENT=sandbox
+   STRIPE_SECRET_KEY=sk_test_your_secret_key
+   STRIPE_PUBLISHABLE_KEY=pk_test_your_publishable_key
+   STRIPE_WEBHOOK_SECRET=whsec_your_webhook_secret
    ```
 
 4. Test the integration:
    ```bash
    npm run dev
-   # Visit http://localhost:3000/api/square/catalog
+   # Test: POST http://localhost:3000/api/stripe/checkout
    ```
 
-### Square Features Included
+### Stripe Features Included
 
-- ✅ Payment processing API
-- ✅ Catalog management
-- ✅ Customer management
-- ✅ Order creation
-- ✅ Refund processing
+- ✅ Checkout sessions
+- ✅ Payment intents
+- ✅ Webhook handling
+- ✅ React payment forms
+- ✅ Success/cancel pages
 - ✅ Type-safe TypeScript integration
-- ✅ Sample React payment form
 - ✅ Comprehensive examples and documentation
 
-### Square API Routes
+### Stripe API Routes
 
-- `POST /api/square/payment` - Process payments
-- `GET /api/square/catalog` - List catalog items
+- `POST /api/stripe/checkout` - Create checkout session
+- `POST /api/stripe/create-payment-intent` - Create payment intent
+- `POST /api/stripe/webhook` - Handle webhooks
 
-For more details, see [SQUARE_SETUP.md](SQUARE_SETUP.md).
+For more details, see [STRIPE_SETUP.md](STRIPE_SETUP.md).

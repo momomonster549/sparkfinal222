@@ -3,9 +3,9 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import Link from "next/link";
 import { PropsWithChildren, useRef, useState } from "react";
 
-type Props = PropsWithChildren<{ href?: string; onClick?: () => void; className?: string; }>;
+type Props = PropsWithChildren<{ href?: string; onClick?: () => void; className?: string; disabled?: boolean; type?: "button" | "submit" | "reset"; }>;
 
-export default function GlowButton({ href = "#", onClick, className = "", children }: Props) {
+export default function GlowButton({ href = "#", onClick, className = "", disabled = false, type, children }: Props) {
   const buttonRef = useRef<HTMLSpanElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   
@@ -104,7 +104,7 @@ export default function GlowButton({ href = "#", onClick, className = "", childr
   }
 
   return (
-    <button onClick={onClick} className="inline-block">
+    <button onClick={onClick} disabled={disabled} type={type} className="inline-block">
       {Btn}
     </button>
   );

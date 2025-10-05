@@ -33,9 +33,7 @@ export async function POST(req: NextRequest) {
       metadata,
       customer_creation: 'if_required',
       allow_promotion_codes: true,
-      // Enable automatic email receipts
-      receipt_email: metadata.donorEmail || undefined,
-      // Configure email settings
+      // Configure email settings for payment intent
       payment_intent_data: {
         receipt_email: metadata.donorEmail || undefined,
         metadata: {

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Section from "@/components/Section";
 import ImpactStrip from "@/components/ImpactStrip";
 import PartnersSlideshow from "@/components/PartnersSlideshow";
@@ -145,7 +146,7 @@ export default function ImpactPage() {
           <div className="flex flex-col sm:flex-row flex-wrap items-center justify-between gap-4">
             <p className="font-label tracking-widest text-sm sm:text-base">SparkCreatives Inc.</p>
             <nav className="flex flex-wrap gap-3 sm:gap-4 text-sm">
-              <a href="/" className="hover:underline touch-target">Home</a>
+              <Link href="/" className="hover:underline touch-target">Home</Link>
               <a href="https://sparkcreativesincorg.base44.app/" className="hover:underline touch-target">Donate</a>
               <a href="#volunteer" className="hover:underline touch-target">Volunteer</a>
             </nav>

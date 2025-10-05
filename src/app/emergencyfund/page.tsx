@@ -149,12 +149,12 @@ export default function EmergencyFundPage() {
                   🌟
                 </div>
                 <div>
-                  <h3 className="font-display2 text-lg text-white">Maria's Family</h3>
+                  <h3 className="font-display2 text-lg text-white">Maria&apos;s Family</h3>
                   <p className="prose-muted text-sm text-white/70">Cebu, Philippines</p>
                 </div>
               </div>
               <p className="prose-muted text-white/80">
-                "When the typhoon destroyed our home, we thought we had lost everything. The emergency kit gave us hope and the basic supplies we needed to start rebuilding our lives."
+                &ldquo;When the typhoon destroyed our home, we thought we had lost everything. The emergency kit gave us hope and the basic supplies we needed to start rebuilding our lives.&rdquo;
               </p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-white/20">
@@ -168,7 +168,7 @@ export default function EmergencyFundPage() {
                 </div>
               </div>
               <p className="prose-muted text-white/80">
-                "After my husband lost his job, we struggled to make ends meet. The emergency supplies helped us through the toughest weeks while we got back on our feet."
+                &ldquo;After my husband lost his job, we struggled to make ends meet. The emergency supplies helped us through the toughest weeks while we got back on our feet.&rdquo;
               </p>
             </div>
           </div>

@@ -20,6 +20,18 @@ export default function Page() {
       {/* Option 2: Without Video (original 3D background) */}
       {/* <VideoHero showVideo={false} /> */}
 
+      <Section id="get-involved" kicker="Get involved" title="Fuel the next box">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+          {[
+            {tier:"Cebu Emergency Fund", price:"$50", bullets:["Every $1 Feeds 1 person","Cebu Earthquake Relief", "One-time donation"], cta:"Donate $50", icon:"📦", color:"from-tamarind-orange to-chili-red", amount: 50, donationTier: 'cebu-emergency-fund' as const},
+            {tier:"Sponsor a Box", price:"$150", bullets:["Fund a complete starter-kit","Help deliver it with tracking"], cta:"Donate $100", icon:"🎁", color:"from-chili-red to-burnt-sienna", amount: 100, donationTier: 'sponsor-box' as const},
+            {tier:"Monthly Ally", price:"25/mo", bullets:["Reliable ongoing support","We'll show your impact"], cta:"Become a Member", icon:"💝", color:"from-burnt-sienna to-cacao-brown", amount: 25, donationTier: 'monthly-ally' as const},
+          ].map((card,i)=> (
+            <DonationCard key={i} {...card} index={i} />
+          ))}
+        </div>
+      </Section>
+
       <Section id="experience" kicker="What you'll experience" title="From surplus to sustainable livelihoods">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
           {[
@@ -38,18 +50,6 @@ export default function Page() {
           { label: "Families supported", value: "17" },
           { label: "Micro-businesses launched", value: "5" },
         ]}/>
-      </Section>
-
-      <Section id="get-involved" kicker="Get involved" title="Fuel the next box">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-          {[
-            {tier:"Supply Boost", price:"$50", bullets:["Fill gaps in a kit","Covers supplies & packing"], cta:"Donate $25", icon:"📦", color:"from-tamarind-orange to-chili-red", amount: 25, donationTier: 'supply-boost' as const},
-            {tier:"Sponsor a Box", price:"$150", bullets:["Fund a complete starter-kit","Help deliver it with tracking"], cta:"Donate $100", icon:"🎁", color:"from-chili-red to-burnt-sienna", amount: 100, donationTier: 'sponsor-box' as const},
-            {tier:"Monthly Ally", price:"25/mo", bullets:["Reliable ongoing support","We'll show your impact"], cta:"Become a Member", icon:"💝", color:"from-burnt-sienna to-cacao-brown", amount: 25, donationTier: 'monthly-ally' as const},
-          ].map((card,i)=> (
-            <DonationCard key={i} {...card} index={i} />
-          ))}
-        </div>
       </Section>
 
       <Section id="calendar" kicker="Upcoming" title="Drives & ship dates">

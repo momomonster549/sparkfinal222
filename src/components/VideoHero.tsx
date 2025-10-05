@@ -281,6 +281,23 @@ export default function VideoHero({ videoUrl = "https://cqxporsfudzigeimzawn.sup
             transition={{ duration: 0.8, delay: 0.8 }}
             className="mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4"
           >
+            {/* Emergency Button */}
+            <motion.div
+              whileHover={{
+                scale: 1.05,
+                rotateY: 5,
+                transition: { duration: 0.3 }
+              }}
+              whileTap={{ scale: 0.95 }}
+              className="w-full sm:w-auto"
+            >
+              <GlowButton 
+                href="/emergencyfund" 
+                className="w-full sm:w-auto text-center text-sm sm:text-base px-6 py-3 !bg-red-600 hover:!bg-red-700 !text-white border-2 border-white shadow-lg"
+              >
+                CEBU EMERGENCY
+              </GlowButton>
+            </motion.div>
             <motion.div
               whileHover={{
                 scale: 1.05,
@@ -301,7 +318,7 @@ export default function VideoHero({ videoUrl = "https://cqxporsfudzigeimzawn.sup
               whileTap={{ scale: 0.95 }}
               className="w-full sm:w-auto"
             >
-              <GlowButton href="https://sparkcreativesincorg.base44.app/" className="w-full sm:w-auto text-center !bg-white/0 text-sm sm:text-base px-6 py-3">See Impact</GlowButton>
+              <GlowButton href="/impactpage" className="w-full sm:w-auto text-center !bg-white/0 text-sm sm:text-base px-6 py-3">See Impact</GlowButton>
             </motion.div>
           </motion.div>
         </motion.div>

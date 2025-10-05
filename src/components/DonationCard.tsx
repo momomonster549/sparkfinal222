@@ -10,6 +10,8 @@ interface DonationCardProps {
   icon: string;
   color: string;
   index: number;
+  amount?: number;
+  donationTier?: 'cebu-emergency-fund' | 'supply-boost' | 'sponsor-box' | 'monthly-ally';
 }
 
 export default function DonationCard({
@@ -20,6 +22,8 @@ export default function DonationCard({
   icon,
   color,
   index,
+  amount,
+  donationTier,
 }: DonationCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -47,6 +51,14 @@ export default function DonationCard({
     mouseX.set(0);
     mouseY.set(0);
     setIsHovered(false);
+  };
+
+  // Determine the link based on donation tier
+  const getDonationLink = () => {
+    if (donationTier === 'cebu-emergency-fund' || donationTier === 'supply-boost') {
+      return '/emergencyfund';
+    }
+    return 'https://sparkcreativesincorg.base44.app/';
   };
 
   return (
@@ -192,9 +204,9 @@ export default function DonationCard({
               whileTap={{ scale: 0.95 }}
             >
               <a
-                href="https://sparkcreativesincorg.base44.app/"
-                target="_blank"
-                rel="noopener noreferrer"
+                href={getDonationLink()}
+                target={donationTier === 'cebu-emergency-fund' || donationTier === 'supply-boost' ? undefined : '_blank'}
+                rel={donationTier === 'cebu-emergency-fund' || donationTier === 'supply-boost' ? undefined : 'noopener noreferrer'}
                 className="w-full py-3 px-6 bg-tamarind-orange hover:bg-tamarind-orange/90 text-white font-medium rounded-lg transition-all shadow-[0_0_20px_rgba(241,151,56,0.3)] hover:shadow-[0_0_30px_rgba(241,151,56,0.5)] text-center block"
               >
                 {cta}

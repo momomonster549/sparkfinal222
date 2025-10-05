@@ -95,14 +95,16 @@ export default function EmergencyFundPage() {
                   </ul>
                 </div>
               </div>
-              <GlowButton 
+              <a 
                 href="https://sparkcreativesincorg/emergencyfund"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto"
+                className="inline-block w-full sm:w-auto"
               >
-                Donate $50 Now
-              </GlowButton>
+                <GlowButton className="w-full sm:w-auto">
+                  Donate $50 Now
+                </GlowButton>
+              </a>
             </div>
           </div>
         </Section>
@@ -181,17 +183,18 @@ export default function EmergencyFundPage() {
               Every $25 donation provides immediate relief to a family in crisis. Your generosity creates a ripple effect of hope and recovery.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <GlowButton 
+              <a 
                 href="https://sparkcreativesincorg.base44.app/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto"
+                className="inline-block w-full sm:w-auto"
               >
-                Donate $25 Now
-              </GlowButton>
+                <GlowButton className="w-full sm:w-auto">
+                  Donate $25 Now
+                </GlowButton>
+              </a>
               <GlowButton 
                 href="/#get-involved"
-                variant="outline"
                 className="w-full sm:w-auto"
               >
                 See All Options

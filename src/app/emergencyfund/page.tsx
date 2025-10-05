@@ -60,7 +60,7 @@ export default function EmergencyFundPage() {
       {/* Content */}
       <div className="relative z-10">
         {/* Hero Section */}
-        <Section className="pt-8 pb-16">
+        <Section>
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="font-display2 text-4xl sm:text-5xl lg:text-6xl mb-6 text-white drop-shadow-lg">
               Emergency Fund

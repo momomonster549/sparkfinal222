@@ -150,7 +150,7 @@ export default function PrivacyPage() {
             </section>
 
             <section>
-              <h2 className="font-display2 text-2xl mb-4">8. Children's Privacy</h2>
+              <h2 className="font-display2 text-2xl mb-4">8. Children&apos;s Privacy</h2>
               <div className="prose-muted space-y-4">
                 <p>
                   We do not knowingly collect personal information from children under 13. 
@@ -164,7 +164,7 @@ export default function PrivacyPage() {
               <div className="prose-muted space-y-4">
                 <p>
                   We may update this privacy policy from time to time. We will notify you of any significant changes 
-                  by posting the new policy on this page and updating the "Last updated" date.
+                  by posting the new policy on this page and updating the &quot;Last updated&quot; date.
                 </p>
               </div>
             </section>

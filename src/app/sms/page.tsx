@@ -63,10 +63,10 @@ export default function SMSPage() {
               ✅
             </motion.div>
             <h1 className="font-display2 text-3xl sm:text-4xl mb-4">
-              You're all set!
+              You&apos;re all set!
             </h1>
             <p className="prose-muted text-lg mb-8">
-              You've successfully opted in to receive SMS updates from SparkCreatives Inc. 
+              You&apos;ve successfully opted in to receive SMS updates from SparkCreatives Inc. 
               You should receive a confirmation text shortly.
             </p>
             <GlowButton href="/">

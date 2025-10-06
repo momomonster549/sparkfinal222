@@ -9,17 +9,17 @@ const LOGO_URL = "https://mprqehqtefuqhtgczaqo.supabase.co/storage/v1/object/sig
 
 // Main navigation links
 const mainLinks = [
-  { href: "/", label: "Home" },
-  { href: "/impactpage", label: "Impact" },
-  { href: "/earthquakefund", label: "Earthquake Fund" },
-  { href: "/emergencyfund", label: "Emergency Fund" },
-  { href: "/sms", label: "SMS Updates" },
+  { href: "/" as const, label: "Home" },
+  { href: "/impactpage" as const, label: "Impact" },
+  { href: "/earthquakefund" as const, label: "Earthquake Fund" },
+  { href: "/emergencyfund" as const, label: "Emergency Fund" },
+  { href: "/sms" as const, label: "SMS Updates" },
 ];
 
 // Footer/legal links
 const footerLinks = [
-  { href: "/privacy", label: "Privacy" },
-  { href: "/terms", label: "Terms" },
+  { href: "/privacy" as const, label: "Privacy" },
+  { href: "/terms" as const, label: "Terms" },
 ];
 
 export default function Header() {

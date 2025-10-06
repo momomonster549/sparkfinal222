@@ -189,7 +189,7 @@ export default function SMSPage() {
             className="mt-8 text-center"
           >
             <p className="text-xs prose-muted">
-              Your privacy is important to us. We'll never share your number with third parties.
+              Your privacy is important to us. We&apos;ll never share your number with third parties.
               <br />
               <a href="/privacy" className="hover:underline text-tamarind-orange">
                 Read our privacy policy

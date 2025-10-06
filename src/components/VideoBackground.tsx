@@ -113,15 +113,6 @@ export default function VideoBackground({
         </div>
       )}
       
-      {/* Debug info in development */}
-      {process.env.NODE_ENV === 'development' && (
-        <div className="absolute top-4 left-4 bg-black/80 text-white p-2 rounded text-xs z-50">
-          <div>Video Error: {videoError ? 'Yes' : 'No'}</div>
-          <div>Video Started: {videoStarted ? 'Yes' : 'No'}</div>
-          <div>Mounted: {mounted ? 'Yes' : 'No'}</div>
-        </div>
-      )}
-      
       {/* Overlay for better text readability */}
       <div className="absolute inset-0 bg-black/40 dark:bg-black/60" />
     </div>

@@ -33,6 +33,14 @@ body {
 }
 
 /* 3D Perspective and Transform Styles */
+.perspective-500 {
+  perspective: 500px;
+}
+
+.perspective-750 {
+  perspective: 750px;
+}
+
 .perspective-1000 {
   perspective: 1000px;
 }
@@ -46,38 +54,14 @@ body {
   transform-style: preserve-3d;
 }
 
-/* Floating animation for background elements */
-@keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(180deg); }
+/* Minimal animations for glass morphism */
+@keyframes subtle-glow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.8; }
 }
 
-.float-animation {
-  animation: float 6s ease-in-out infinite;
-}
-
-/* Particle animation */
-@keyframes particle-float {
-  0% { 
-    transform: translateY(0px) translateX(0px) scale(0);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-    transform: translateY(-10px) translateX(5px) scale(1);
-  }
-  90% {
-    opacity: 1;
-    transform: translateY(-80px) translateX(-10px) scale(0.5);
-  }
-  100% { 
-    transform: translateY(-100px) translateX(-15px) scale(0);
-    opacity: 0;
-  }
-}
-
-.particle-float {
-  animation: particle-float 2s ease-out infinite;
+.subtle-glow {
+  animation: subtle-glow 3s ease-in-out infinite;
 }
 
 /* Enhanced glow effects */
@@ -106,6 +90,10 @@ html {
     perspective: 500px;
   }
   
+  .perspective-750 {
+    perspective: 400px;
+  }
+  
   /* Optimize animations for mobile */
   .mobile-optimized {
     transform: translateZ(0);
@@ -122,12 +110,84 @@ html {
     min-height: 44px;
     min-width: 44px;
   }
+  
+  /* Smaller pagination dots on mobile with proper touch targets */
+  .touch-target.w-0\.5,
+  .touch-target.w-1 {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 20px;
+  }
+  
+  /* Optimize glass morphism for mobile performance */
+  .backdrop-blur-sm {
+    backdrop-filter: blur(4px);
+  }
+  
+  .backdrop-blur-2xl {
+    backdrop-filter: blur(12px);
+  }
+  
+  /* Reduce glass opacity on mobile for better performance */
+  .bg-white\/5 {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+  
+  .bg-white\/10 {
+    background-color: rgba(255, 255, 255, 0.12);
+  }
+}
+
+/* Tablet optimizations */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .perspective-1000 {
+    perspective: 750px;
+  }
+  
+  /* Optimize for tablet performance */
+  .tablet-optimized {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+  
+  /* Enhanced glass morphism for tablets */
+  .backdrop-blur-2xl {
+    backdrop-filter: blur(20px);
+  }
+  
+  /* Balanced glass opacity for tablets */
+  .bg-white\/5 {
+    background-color: rgba(255, 255, 255, 0.06);
+  }
+  
+  .bg-white\/10 {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
 }
 
 /* Large screen optimizations */
 @media (min-width: 1920px) {
   .container-xl {
     max-width: 1400px;
+  }
+  
+  /* Enhanced glass effects for large screens */
+  .backdrop-blur-2xl {
+    backdrop-filter: blur(32px);
+  }
+  
+  /* Subtle glass opacity for large screens */
+  .bg-white\/5 {
+    background-color: rgba(255, 255, 255, 0.04);
+  }
+  
+  .bg-white\/10 {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+  
+  /* Enhanced effects for large screens */
+  .large-screen-enhanced {
+    filter: blur(20px);
   }
 }
 

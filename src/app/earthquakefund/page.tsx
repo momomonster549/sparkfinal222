@@ -214,20 +214,80 @@ export default function EarthquakeFundPage() {
           </div>
         </Section>
 
-        {/* Call to Action */}
-        <Section id="cta" kicker="Make a difference" title="Your support matters">
-          <div className="text-center max-w-4xl mx-auto px-4 sm:px-6">
-            <p className="prose-muted text-base sm:text-lg mb-6 sm:mb-8 text-white/90">
-              Every $25 donation provides immediate relief to a family in crisis. Your generosity creates a ripple effect of hope and recovery.
+        {/* Photo Slideshow */}
+        <Section id="slideshow" kicker="Real impact" title="See our work in action">
+          <div className="text-center mb-8">
+            <p className="prose-muted text-base sm:text-lg text-white/90 max-w-3xl mx-auto">
+              Follow our earthquake response efforts in Cebu, Philippines. Every photo tells a story of hope, resilience, and community strength.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              <QuickDonationButton 
-                amount={25} 
-                campaign="earthquake-fund"
-                className="inline-block w-full sm:w-auto"
-              >
-                Donate $25 Now
-              </QuickDonationButton>
+          </div>
+          
+          {/* Single Window Slideshow */}
+          <div className="max-w-4xl mx-auto">
+            <div className="relative bg-white/10 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-white/20 overflow-hidden">
+              {/* Slideshow Container */}
+              <div className="relative aspect-video rounded-xl overflow-hidden">
+                {backgroundImages.map((image, index) => (
+                  <div
+                    key={index}
+                    className={`absolute inset-0 transition-opacity duration-1000 ${
+                      index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+                    }`}
+                    style={{
+                      backgroundImage: `url(${image})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      backgroundRepeat: 'no-repeat'
+                    }}
+                  />
+                ))}
+                {/* Overlay with photo info */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4">
+                  <div className="text-white">
+                    <h3 className="text-lg sm:text-xl font-bold mb-1">
+                      {currentImageIndex === 0 && "Earthquake Response - Cebu, Philippines"}
+                      {currentImageIndex === 1 && "Emergency Relief - Bogo, Cebu"}
+                      {currentImageIndex === 2 && "Community Support - San Remigio, Cebu"}
+                      {currentImageIndex === 3 && "Food Distribution - Earthquake Victims"}
+                      {currentImageIndex === 4 && "Recovery Efforts - Rebuilding Lives"}
+                      {currentImageIndex === 5 && "Volunteer Team - SparkCreatives"}
+                    </h3>
+                    <p className="text-sm sm:text-base text-white/80">
+                      {currentImageIndex === 0 && "Providing immediate relief to families affected by the 6.9 magnitude earthquake"}
+                      {currentImageIndex === 1 && "Emergency response and food distribution in Bogo, Cebu"}
+                      {currentImageIndex === 2 && "Community support and resilience building in San Remigio, Cebu"}
+                      {currentImageIndex === 3 && "Distributing meals and essential supplies to earthquake victims"}
+                      {currentImageIndex === 4 && "Helping communities rebuild and recover from earthquake damage"}
+                      {currentImageIndex === 5 && "Our dedicated volunteer team making a difference in Cebu"}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Navigation Dots */}
+              <div className="flex justify-center mt-4 space-x-2">
+                {backgroundImages.slice(0, 6).map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentImageIndex(index)}
+                    className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
+                      index === currentImageIndex 
+                        ? 'bg-tamarind-orange scale-125' 
+                        : 'bg-white/40 hover:bg-white/60'
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Call to Action Below Slideshow */}
+          <div className="text-center mt-8 sm:mt-12">
+            <p className="prose-muted text-base sm:text-lg mb-6 text-white/90">
+              Join us in making a difference. Every donation helps us respond faster and reach more families in need.
+            </p>
+            <div className="flex justify-center">
               <GlowButton 
                 href="/#get-involved"
                 className="w-full sm:w-auto text-sm sm:text-base px-4 sm:px-6 py-2 sm:py-3"

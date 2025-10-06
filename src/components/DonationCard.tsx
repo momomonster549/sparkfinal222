@@ -1,5 +1,5 @@
 "use client";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRef, useState } from "react";
 import { useDonation } from '@/hooks/useDonation';
 
@@ -28,38 +28,12 @@ export default function DonationCard({
   campaign,
   description,
 }: DonationCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
   const [showEmailForm, setShowEmailForm] = useState(false);
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   
   const { handleQuickDonation, isLoading, error } = useDonation(campaign);
-  
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [15, -15]), { stiffness: 300, damping: 30 });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-15, 15]), { stiffness: 300, damping: 30 });
-  
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (cardRef.current) {
-      const rect = cardRef.current.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const distanceX = e.clientX - centerX;
-      const distanceY = e.clientY - centerY;
-      
-      mouseX.set(distanceX / (rect.width / 2));
-      mouseY.set(distanceY / (rect.height / 2));
-    }
-  };
-  
-  const handleMouseLeave = () => {
-    mouseX.set(0);
-    mouseY.set(0);
-    setIsHovered(false);
-  };
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const handleDonation = async () => {
     if (!showEmailForm) {
@@ -79,244 +53,100 @@ export default function DonationCard({
 
   return (
     <motion.div
-      ref={cardRef}
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.2 }}
-      viewport={{ once: true, margin: "-100px" }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={handleMouseLeave}
-      className="group perspective-1000 h-full"
-      style={{
-        transformStyle: "preserve-3d",
-      }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      viewport={{ once: true, margin: "-50px" }}
+      className="group h-full w-full"
     >
-      <motion.div
-        style={{
-          rotateX,
-          rotateY,
-          scale: isHovered ? 1.05 : 1,
-          z: isHovered ? 50 : 0,
-        }}
-        className="relative h-full"
+      <div 
+        ref={cardRef}
+        className="surface rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 flex flex-col h-full relative overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-tamarind-orange/20 cursor-pointer min-h-[280px] sm:min-h-[320px] md:min-h-[360px]"
       >
-        <motion.div
-          className="surface rounded-2xl p-4 sm:p-6 flex flex-col h-full relative overflow-hidden"
-          style={{
-            transform: "translateZ(0)",
-            boxShadow: isHovered 
-              ? "0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.08), 0 0 24px rgba(241,151,56,0.25)"
-              : "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255,255,255,0.08)"
-          }}
-        >
-          {/* Gradient background overlay */}
-          <motion.div
-            className={`absolute inset-0 bg-gradient-to-br ${color} opacity-0 rounded-2xl pointer-events-none`}
-            animate={{
-              opacity: isHovered ? 0.1 : 0,
-            }}
-            transition={{ duration: 0.3 }}
-          />
+        {/* Subtle gradient background */}
+        <div className={`absolute inset-0 bg-gradient-to-br ${color} opacity-0 group-hover:opacity-5 rounded-xl sm:rounded-2xl transition-opacity duration-300`} />
 
-          {/* Floating background elements */}
-          <motion.div
-            className={`absolute top-4 right-4 w-16 h-16 bg-gradient-to-br ${color} opacity-20 rounded-full blur-sm pointer-events-none`}
-            animate={{
-              scale: isHovered ? [1, 1.3, 1] : 1,
-              rotate: isHovered ? [0, 180, 360] : 0,
-            }}
-            transition={{ duration: 2, repeat: isHovered ? Infinity : 0 }}
-          />
+        {/* Icon - Responsive sizing */}
+        <div className="text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-3 md:mb-4 transition-transform duration-300 group-hover:scale-110">
+          {icon}
+        </div>
 
-          <motion.div
-            className={`absolute bottom-4 left-4 w-12 h-12 bg-gradient-to-br ${color} opacity-15 rounded-full blur-sm pointer-events-none`}
-            animate={{
-              scale: isHovered ? [1, 1.4, 1] : 1,
-              rotate: isHovered ? [0, -180, -360] : 0,
-            }}
-            transition={{ duration: 2.5, repeat: isHovered ? Infinity : 0 }}
-          />
+        {/* Content */}
+        <div className="flex-1 flex flex-col">
+          <p className="font-label tracking-wider text-tamarind-orange text-xs sm:text-sm md:text-base">
+            {tier}
+          </p>
+          
+          <h3 className="font-display2 text-xl sm:text-2xl md:text-3xl mt-1 sm:mt-2 leading-tight">
+            {price}
+          </h3>
 
-          {/* Icon with 3D effect */}
-          <motion.div
-            className="text-3xl sm:text-4xl mb-3 sm:mb-4"
-            style={{
-              transform: "translateZ(20px)",
-            }}
-            animate={{
-              rotateY: isHovered ? [0, 360] : 0,
-              scale: isHovered ? 1.2 : 1,
-            }}
-            transition={{ duration: 0.6 }}
-          >
-            {icon}
-          </motion.div>
+          {description && (
+            <p className="prose-muted text-xs sm:text-sm mt-1 sm:mt-2 line-clamp-2">
+              {description}
+            </p>
+          )}
+          
+          <ul className="prose-muted mt-2 sm:mt-3 md:mt-4 space-y-1 sm:space-y-1.5 md:space-y-2 list-disc list-inside text-xs sm:text-sm md:text-base flex-1">
+            {bullets.map((bullet, j) => (
+              <li key={j} className="leading-relaxed">
+                {bullet}
+              </li>
+            ))}
+          </ul>
+        </div>
 
-          {/* Content */}
-          <motion.div
-            className="flex-1"
-            style={{
-              transform: "translateZ(10px)",
-            }}
-          >
-            <motion.p 
-              className="font-label tracking-wider text-tamarind-orange text-sm sm:text-base"
-              animate={{
-                color: isHovered ? "#F19738" : undefined,
-              }}
-              transition={{ duration: 0.3 }}
+        {/* CTA Button - Responsive sizing */}
+        <div className="mt-3 sm:mt-4 md:mt-6 relative z-10">
+          {!showEmailForm ? (
+            <button
+              onClick={handleDonation}
+              disabled={isLoading}
+              className="w-full py-2.5 sm:py-3 md:py-3.5 px-4 sm:px-6 bg-tamarind-orange hover:bg-tamarind-orange/90 text-white font-medium rounded-lg sm:rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl hover:shadow-tamarind-orange/30 text-center disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
             >
-              {tier}
-            </motion.p>
-            
-            <motion.h3 
-              className="font-display2 text-2xl sm:text-3xl mt-1 sm:mt-2"
-              animate={{
-                scale: isHovered ? 1.05 : 1,
-              }}
-              transition={{ duration: 0.3 }}
-            >
-              {price}
-            </motion.h3>
-
-            {description && (
-              <motion.p 
-                className="prose-muted text-sm mt-2"
-                animate={{
-                  opacity: isHovered ? 0.9 : 0.75,
-                }}
-                transition={{ duration: 0.3 }}
-              >
-                {description}
-              </motion.p>
-            )}
-            
-            <motion.ul 
-              className="prose-muted mt-3 sm:mt-4 space-y-1 sm:space-y-2 list-disc list-inside text-sm sm:text-base"
-              animate={{
-                opacity: isHovered ? 0.9 : 0.75,
-              }}
-              transition={{ duration: 0.3 }}
-            >
-              {bullets.map((bullet, j) => (
-                <motion.li 
-                  key={j}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: j * 0.1 }}
-                >
-                  {bullet}
-                </motion.li>
-              ))}
-            </motion.ul>
-          </motion.div>
-
-          {/* CTA Button */}
-          <motion.div
-            className="mt-4 sm:mt-6"
-            style={{
-              transform: "translateZ(15px)",
-            }}
-            animate={{
-              y: isHovered ? -5 : 0,
-            }}
-            transition={{ duration: 0.3 }}
-          >
-            {!showEmailForm ? (
-              <motion.div
-                whileHover={{
-                  scale: 1.05,
-                  rotateY: 5,
-                  transition: { duration: 0.3 }
-                }}
-                whileTap={{ scale: 0.95 }}
-              >
+              {isLoading ? 'Processing...' : cta}
+            </button>
+          ) : (
+            <div className="space-y-2 sm:space-y-3">
+              <input
+                type="text"
+                placeholder="Your name (optional)"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full px-3 sm:px-4 py-2 sm:py-2.5 bg-white/10 border border-white/20 rounded-md sm:rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-tamarind-orange/50 text-xs sm:text-sm transition-all duration-200"
+              />
+              <input
+                type="email"
+                placeholder="Your email for receipt"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-3 sm:px-4 py-2 sm:py-2.5 bg-white/10 border border-white/20 rounded-md sm:rounded-lg text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-tamarind-orange/50 text-xs sm:text-sm transition-all duration-200"
+              />
+              <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
                 <button
                   onClick={handleDonation}
                   disabled={isLoading}
-                  className="w-full py-3 px-6 bg-tamarind-orange hover:bg-tamarind-orange/90 text-white font-medium rounded-lg transition-all shadow-[0_0_20px_rgba(241,151,56,0.3)] hover:shadow-[0_0_30px_rgba(241,151,56,0.5)] text-center disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 py-2 sm:py-2.5 px-3 sm:px-4 bg-tamarind-orange hover:bg-tamarind-orange/90 text-white font-medium rounded-md sm:rounded-lg text-xs sm:text-sm transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isLoading ? 'Processing...' : cta}
+                  {isLoading ? 'Processing...' : `Donate $${amount}`}
                 </button>
-              </motion.div>
-            ) : (
-              <div className="space-y-3">
-                <input
-                  type="text"
-                  placeholder="Your name (optional)"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/30 text-sm"
-                />
-                <input
-                  type="email"
-                  placeholder="Your email for receipt"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/30 text-sm"
-                />
-                <div className="flex space-x-2">
-                  <button
-                    onClick={handleDonation}
-                    disabled={isLoading}
-                    className="flex-1 py-2 px-4 bg-tamarind-orange hover:bg-tamarind-orange/90 text-white font-medium rounded text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {isLoading ? 'Processing...' : `Donate $${amount}`}
-                  </button>
-                  <button
-                    onClick={() => setShowEmailForm(false)}
-                    className="px-3 py-2 text-sm text-white/70 hover:text-white border border-white/20 rounded hover:bg-white/10 transition-colors"
-                  >
-                    Cancel
-                  </button>
-                </div>
+                <button
+                  onClick={() => setShowEmailForm(false)}
+                  className="py-2 sm:py-2.5 px-3 sm:px-4 text-xs sm:text-sm text-white/70 hover:text-white border border-white/20 rounded-md sm:rounded-lg hover:bg-white/10 transition-colors duration-200 sm:w-auto"
+                >
+                  Cancel
+                </button>
               </div>
-            )}
-
-            {error && (
-              <div className="text-red-400 text-xs mt-2">
-                {error}
-              </div>
-            )}
-          </motion.div>
-
-          {/* Floating particles on hover */}
-          {isHovered && (
-            <>
-              {[...Array(8)].map((_, j) => (
-                <motion.div
-                  key={j}
-                  className="absolute w-1 h-1 bg-tamarind-orange/60 rounded-full pointer-events-none"
-                  initial={{
-                    x: Math.random() * 300,
-                    y: Math.random() * 300,
-                    opacity: 0,
-                  }}
-                  animate={{
-                    y: [null, -120],
-                    opacity: [0, 1, 0],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    delay: j * 0.3,
-                  }}
-                />
-              ))}
-            </>
+            </div>
           )}
 
-          {/* Glow effect on hover */}
-          <motion.div
-            className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${color} opacity-0 pointer-events-none`}
-            animate={{
-              opacity: isHovered ? 0.05 : 0,
-            }}
-            transition={{ duration: 0.3 }}
-          />
-        </motion.div>
-      </motion.div>
+          {error && (
+            <div className="text-red-400 text-xs mt-1 sm:mt-2 text-center">
+              {error}
+            </div>
+          )}
+        </div>
+      </div>
     </motion.div>
   );
 }

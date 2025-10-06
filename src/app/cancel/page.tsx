@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Link from 'next/link';
 import Section from "@/components/Section";
 import GlowButton from "@/components/GlowButton";
+import Footer from "@/components/Footer";
 
 export default function CancelPage() {
   return (
@@ -57,6 +58,7 @@ export default function CancelPage() {
           </motion.div>
         </motion.div>
       </Section>
+      <Footer />
     </main>
   );
 }

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import Section from "@/components/Section";
 import GlowButton from "@/components/GlowButton";
+import Footer from "@/components/Footer";
 
 export default function SMSPage() {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -198,6 +199,7 @@ export default function SMSPage() {
           </motion.div>
         </motion.div>
       </Section>
+      <Footer />
     </main>
   );
 }

@@ -4,6 +4,7 @@ import Section from "@/components/Section";
 import GlowButton from "@/components/GlowButton";
 import QuickDonationButton from "@/components/QuickDonationButton";
 import CustomAmountDonation from "@/components/CustomAmountDonation";
+import Footer from "@/components/Footer";
 
 export default function EarthquakeFundPage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -236,6 +237,11 @@ export default function EarthquakeFundPage() {
             </div>
           </div>
         </Section>
+
+        {/* Footer */}
+        <div className="relative z-10">
+          <Footer />
+        </div>
       </div>
     </main>
   );

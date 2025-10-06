@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import Section from '@/components/Section';
 import GlowButton from '@/components/GlowButton';
+import Footer from '@/components/Footer';
 
 function SuccessPageContent() {
   const searchParams = useSearchParams();
@@ -251,6 +252,7 @@ function SuccessPageContent() {
           </motion.div>
         </motion.div>
       </Section>
+      <Footer />
     </main>
   );
 }

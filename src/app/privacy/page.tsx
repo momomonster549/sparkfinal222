@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import Section from "@/components/Section";
 import GlowButton from "@/components/GlowButton";
+import Footer from "@/components/Footer";
 
 export default function PrivacyPage() {
   return (
@@ -197,6 +198,7 @@ export default function PrivacyPage() {
           </motion.div>
         </motion.div>
       </Section>
+      <Footer />
     </main>
   );
 }

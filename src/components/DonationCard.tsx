@@ -1,6 +1,7 @@
 "use client";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
+import { useDonation } from '@/hooks/useDonation';
 
 interface DonationCardProps {
   tier: string;
@@ -10,8 +11,9 @@ interface DonationCardProps {
   icon: string;
   color: string;
   index: number;
-  amount?: number;
-  donationTier?: 'cebu-emergency-fund' | 'supply-boost' | 'sponsor-box' | 'monthly-ally';
+  amount: number;
+  campaign: string;
+  description?: string;
 }
 
 export default function DonationCard({
@@ -23,10 +25,16 @@ export default function DonationCard({
   color,
   index,
   amount,
-  donationTier,
+  campaign,
+  description,
 }: DonationCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [showEmailForm, setShowEmailForm] = useState(false);
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  
+  const { handleQuickDonation, isLoading, error } = useDonation(campaign);
   
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -53,12 +61,20 @@ export default function DonationCard({
     setIsHovered(false);
   };
 
-  // Determine the link based on donation tier
-  const getDonationLink = () => {
-    if (donationTier === 'cebu-emergency-fund' || donationTier === 'supply-boost') {
-      return '/emergencyfund';
+  const handleDonation = async () => {
+    if (!showEmailForm) {
+      setShowEmailForm(true);
+      return;
     }
-    return 'https://sparkcreativesincorg.base44.app/';
+    
+    if (email.trim()) {
+      await handleQuickDonation(amount, { 
+        name: name.trim() || undefined, 
+        email: email.trim() 
+      });
+    } else {
+      await handleQuickDonation(amount);
+    }
   };
 
   return (
@@ -163,6 +179,18 @@ export default function DonationCard({
             >
               {price}
             </motion.h3>
+
+            {description && (
+              <motion.p 
+                className="prose-muted text-sm mt-2"
+                animate={{
+                  opacity: isHovered ? 0.9 : 0.75,
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                {description}
+              </motion.p>
+            )}
             
             <motion.ul 
               className="prose-muted mt-3 sm:mt-4 space-y-1 sm:space-y-2 list-disc list-inside text-sm sm:text-base"
@@ -195,23 +223,62 @@ export default function DonationCard({
             }}
             transition={{ duration: 0.3 }}
           >
-            <motion.div
-              whileHover={{
-                scale: 1.05,
-                rotateY: 5,
-                transition: { duration: 0.3 }
-              }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <a
-                href={getDonationLink()}
-                target={donationTier === 'cebu-emergency-fund' || donationTier === 'supply-boost' ? undefined : '_blank'}
-                rel={donationTier === 'cebu-emergency-fund' || donationTier === 'supply-boost' ? undefined : 'noopener noreferrer'}
-                className="w-full py-3 px-6 bg-tamarind-orange hover:bg-tamarind-orange/90 text-white font-medium rounded-lg transition-all shadow-[0_0_20px_rgba(241,151,56,0.3)] hover:shadow-[0_0_30px_rgba(241,151,56,0.5)] text-center block"
+            {!showEmailForm ? (
+              <motion.div
+                whileHover={{
+                  scale: 1.05,
+                  rotateY: 5,
+                  transition: { duration: 0.3 }
+                }}
+                whileTap={{ scale: 0.95 }}
               >
-                {cta}
-              </a>
-            </motion.div>
+                <button
+                  onClick={handleDonation}
+                  disabled={isLoading}
+                  className="w-full py-3 px-6 bg-tamarind-orange hover:bg-tamarind-orange/90 text-white font-medium rounded-lg transition-all shadow-[0_0_20px_rgba(241,151,56,0.3)] hover:shadow-[0_0_30px_rgba(241,151,56,0.5)] text-center disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isLoading ? 'Processing...' : cta}
+                </button>
+              </motion.div>
+            ) : (
+              <div className="space-y-3">
+                <input
+                  type="text"
+                  placeholder="Your name (optional)"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/30 text-sm"
+                />
+                <input
+                  type="email"
+                  placeholder="Your email for receipt"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/30 text-sm"
+                />
+                <div className="flex space-x-2">
+                  <button
+                    onClick={handleDonation}
+                    disabled={isLoading}
+                    className="flex-1 py-2 px-4 bg-tamarind-orange hover:bg-tamarind-orange/90 text-white font-medium rounded text-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isLoading ? 'Processing...' : `Donate $${amount}`}
+                  </button>
+                  <button
+                    onClick={() => setShowEmailForm(false)}
+                    className="px-3 py-2 text-sm text-white/70 hover:text-white border border-white/20 rounded hover:bg-white/10 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {error && (
+              <div className="text-red-400 text-xs mt-2">
+                {error}
+              </div>
+            )}
           </motion.div>
 
           {/* Floating particles on hover */}

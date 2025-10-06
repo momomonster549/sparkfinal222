@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Section from "@/components/Section";
 import GlowButton from "@/components/GlowButton";
+import Footer from "@/components/Footer";
 
 export default function EmergencyFundPage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -202,6 +203,11 @@ export default function EmergencyFundPage() {
             </div>
           </div>
         </Section>
+
+        {/* Footer */}
+        <div className="relative z-10">
+          <Footer />
+        </div>
       </div>
     </main>
   );

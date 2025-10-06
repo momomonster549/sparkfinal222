@@ -5,7 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import GlowButton from "./GlowButton";
 
-const LOGO_URL = "https://mprqehqtefuqhtgczaqo.supabase.co/storage/v1/object/sign/website-assets/Spark%20Creatives%20LOGO.PNG?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9mYWQ4OGYxOC1lZmEyLTQwNzUtODVjNi01ODhiN2ZmZmNmZDQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ3ZWJzaXRlLWFzc2V0cy9TcGFyayBDcmVhdGl2ZXMgTE9HTy5QTkciLCJpYXQiOjE3NTk1MzI1MTcsImV4cCI6MTc5MTA2ODUxN30.hkTxUWUu7AXJymRiZ87eOVP0LCxZUYZSL4dGZliEL6o";
+const LOGO_URL = "https://mprqehqtefuqhtgczaqo.supabase.co/storage/v1/object/sign/website-assets/SparkCompostela/Spark%20Creatives%20LOGO%20(1).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9mYWQ4OGYxOC1lZmEyLTQwNzUtODVjNi01ODhiN2ZmZmNmZDQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ3ZWJzaXRlLWFzc2V0cy9TcGFya0NvbXBvc3RlbGEvU3BhcmsgQ3JlYXRpdmVzIExPR08gKDEpLnBuZyIsImlhdCI6MTc1OTc3NTkzMSwiZXhwIjozNDk0MjU1OTMxfQ.Xrf-70KKZEKKuFNKmvIcHG-iHaUk58h7YxvCZ4TySdY";
 
 // Main navigation links
 const mainLinks = [
@@ -70,12 +70,12 @@ export default function Header() {
             className="flex items-center gap-2 sm:gap-3 focus:outline-none focus:ring-2 focus:ring-tamarind-orange focus:ring-offset-2 focus:ring-offset-transparent rounded-lg"
             aria-label="SparkCreatives Inc. - Go to homepage"
           >
-            <div className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white p-1 sm:p-1.5 flex-shrink-0">
+            <div className="relative w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-white p-1 sm:p-1.5 flex-shrink-0">
               <Image
                 src={LOGO_URL}
                 alt="SparkCreatives Logo"
-                width={40}
-                height={40}
+                width={64}
+                height={64}
                 className="object-contain w-full h-full"
                 priority
               />

@@ -6,7 +6,7 @@ interface VideoBackgroundProps {
 }
 
 export default function VideoBackground({ 
-  videoUrl = "https://cqxporsfudzigeimzawn.supabase.co/storage/v1/object/sign/website-assets-video/Igniting%20Creative%20Change!.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wNmNkMDYzYy1mYzcwLTQ5ZmMtOTEzMS0zMDUyOTU1MzRiZGMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ3ZWJzaXRlLWFzc2V0cy12aWRlby9JZ25pdGluZyBDcmVhdGl2ZSBDaGFuZ2UhLm1wNCIsImlhdCI6MTc1OTc3NzQxMywiZXhwIjozNDk0MjU3NDEzfQ.bq0st5-ZLFC6cq_yR34hVjuTwr_i_BvknxRlGiBiyto" 
+  videoUrl = "https://mprqehqtefuqhtgczaqo.supabase.co/storage/v1/object/sign/videos-website-assets/sparkcreativesinc/Igniting%20Creative%20Change!.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9mYWQ4OGYxOC1lZmEyLTQwNzUtODVjNi01ODhiN2ZmZmNmZDQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJ2aWRlb3Mtd2Vic2l0ZS1hc3NldHMvc3BhcmtjcmVhdGl2ZXNpbmMvSWduaXRpbmcgQ3JlYXRpdmUgQ2hhbmdlIS5tcDQiLCJpYXQiOjE3NTk4NTY4MTksImV4cCI6MzQ5NDMzNjgxOX0.aVQFJmnhdWb68Ocftx6H76rt56PlwV0mYTq6Uo6crN4" 
 }: VideoBackgroundProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoError, setVideoError] = useState(false);
@@ -15,6 +15,7 @@ export default function VideoBackground({
 
   useEffect(() => {
     setMounted(true);
+    console.log('VideoBackground: Component mounted with videoUrl:', videoUrl);
   }, []);
 
   // Force video to play - similar to VideoHero
@@ -92,9 +93,12 @@ export default function VideoBackground({
               const target = e.target as HTMLVideoElement;
               console.error('VideoBackground: Video error details:', {
                 error: target.error,
+                errorCode: target.error?.code,
+                errorMessage: target.error?.message,
                 networkState: target.networkState,
                 readyState: target.readyState,
-                src: target.currentSrc || target.src
+                src: target.currentSrc || target.src,
+                videoUrl: videoUrl
               });
               setVideoError(true);
             }}

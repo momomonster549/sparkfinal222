@@ -18,7 +18,7 @@ const securityHeaders = [
       "font-src 'self' data: https://fonts.gstatic.com https://fonts.googleapis.com",
       "connect-src 'self' https: https://api.stripe.com https://hooks.stripe.com",
       "frame-src 'self' https://js.stripe.com https://hooks.stripe.com",
-      "media-src 'self' https://cqxporsfudzigeimzawn.supabase.co https://commondatastorage.googleapis.com https://sample-videos.com",
+      "media-src 'self' https://cqxporsfudzigeimzawn.supabase.co https://mprqehqtefuqhtgczaqo.supabase.co https://commondatastorage.googleapis.com https://sample-videos.com",
       "frame-ancestors 'self'",
       "base-uri 'self'",
       "form-action 'self'"
